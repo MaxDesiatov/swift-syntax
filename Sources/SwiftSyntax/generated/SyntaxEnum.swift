@@ -109,6 +109,7 @@ public enum SyntaxEnum: Sendable {
   case discardStmt(DiscardStmtSyntax)
   @_spi(ExperimentalLanguageFeatures)
   case doExpr(DoExprSyntax)
+  case doHandleStmt(DoHandleStmtSyntax)
   case doStmt(DoStmtSyntax)
   case documentationAttributeArgumentList(DocumentationAttributeArgumentListSyntax)
   case documentationAttributeArgument(DocumentationAttributeArgumentSyntax)
@@ -116,6 +117,9 @@ public enum SyntaxEnum: Sendable {
   case editorPlaceholderDecl(EditorPlaceholderDeclSyntax)
   case editorPlaceholderExpr(EditorPlaceholderExprSyntax)
   case effectsAttributeArgumentList(EffectsAttributeArgumentListSyntax)
+  case effectsClause(EffectsClauseSyntax)
+  case effectsTypeListElement(EffectsTypeListElementSyntax)
+  case effectsTypeList(EffectsTypeListSyntax)
   case enumCaseDecl(EnumCaseDeclSyntax)
   case enumCaseElementList(EnumCaseElementListSyntax)
   case enumCaseElement(EnumCaseElementSyntax)
@@ -151,6 +155,8 @@ public enum SyntaxEnum: Sendable {
   case genericSpecializationExpr(GenericSpecializationExprSyntax)
   case genericWhereClause(GenericWhereClauseSyntax)
   case guardStmt(GuardStmtSyntax)
+  case handleClauseList(HandleClauseListSyntax)
+  case handleClause(HandleClauseSyntax)
   case identifierPattern(IdentifierPatternSyntax)
   case identifierType(IdentifierTypeSyntax)
   case ifConfigClauseList(IfConfigClauseListSyntax)
@@ -316,6 +322,7 @@ public enum SyntaxEnum: Sendable {
   case whereClause(WhereClauseSyntax)
   case whileStmt(WhileStmtSyntax)
   case wildcardPattern(WildcardPatternSyntax)
+  case withEffectExpr(WithEffectExprSyntax)
   case yieldStmt(YieldStmtSyntax)
   case yieldedExpressionList(YieldedExpressionListSyntax)
   case yieldedExpression(YieldedExpressionSyntax)
@@ -504,6 +511,8 @@ extension Syntax {
       return .discardStmt(DiscardStmtSyntax(self)!)
     case .doExpr:
       return .doExpr(DoExprSyntax(self)!)
+    case .doHandleStmt:
+      return .doHandleStmt(DoHandleStmtSyntax(self)!)
     case .doStmt:
       return .doStmt(DoStmtSyntax(self)!)
     case .documentationAttributeArgumentList:
@@ -518,6 +527,12 @@ extension Syntax {
       return .editorPlaceholderExpr(EditorPlaceholderExprSyntax(self)!)
     case .effectsAttributeArgumentList:
       return .effectsAttributeArgumentList(EffectsAttributeArgumentListSyntax(self)!)
+    case .effectsClause:
+      return .effectsClause(EffectsClauseSyntax(self)!)
+    case .effectsTypeListElement:
+      return .effectsTypeListElement(EffectsTypeListElementSyntax(self)!)
+    case .effectsTypeList:
+      return .effectsTypeList(EffectsTypeListSyntax(self)!)
     case .enumCaseDecl:
       return .enumCaseDecl(EnumCaseDeclSyntax(self)!)
     case .enumCaseElementList:
@@ -588,6 +603,10 @@ extension Syntax {
       return .genericWhereClause(GenericWhereClauseSyntax(self)!)
     case .guardStmt:
       return .guardStmt(GuardStmtSyntax(self)!)
+    case .handleClauseList:
+      return .handleClauseList(HandleClauseListSyntax(self)!)
+    case .handleClause:
+      return .handleClause(HandleClauseSyntax(self)!)
     case .identifierPattern:
       return .identifierPattern(IdentifierPatternSyntax(self)!)
     case .identifierType:
@@ -904,6 +923,8 @@ extension Syntax {
       return .whileStmt(WhileStmtSyntax(self)!)
     case .wildcardPattern:
       return .wildcardPattern(WildcardPatternSyntax(self)!)
+    case .withEffectExpr:
+      return .withEffectExpr(WithEffectExprSyntax(self)!)
     case .yieldStmt:
       return .yieldStmt(YieldStmtSyntax(self)!)
     case .yieldedExpressionList:
@@ -1066,6 +1087,7 @@ public enum ExprSyntaxEnum {
   case unresolvedIsExpr(UnresolvedIsExprSyntax)
   case unresolvedTernaryExpr(UnresolvedTernaryExprSyntax)
   case unsafeExpr(UnsafeExprSyntax)
+  case withEffectExpr(WithEffectExprSyntax)
 }
 
 extension ExprSyntax {
@@ -1180,6 +1202,8 @@ extension ExprSyntax {
       return .unresolvedTernaryExpr(UnresolvedTernaryExprSyntax(self)!)
     case .unsafeExpr:
       return .unsafeExpr(UnsafeExprSyntax(self)!)
+    case .withEffectExpr:
+      return .withEffectExpr(WithEffectExprSyntax(self)!)
     default:
       preconditionFailure("unknown Expr syntax kind")
     }
@@ -1227,6 +1251,7 @@ public enum StmtSyntaxEnum {
   case continueStmt(ContinueStmtSyntax)
   case deferStmt(DeferStmtSyntax)
   case discardStmt(DiscardStmtSyntax)
+  case doHandleStmt(DoHandleStmtSyntax)
   case doStmt(DoStmtSyntax)
   case expressionStmt(ExpressionStmtSyntax)
   case fallThroughStmt(FallThroughStmtSyntax)
@@ -1255,6 +1280,8 @@ extension StmtSyntax {
       return .deferStmt(DeferStmtSyntax(self)!)
     case .discardStmt:
       return .discardStmt(DiscardStmtSyntax(self)!)
+    case .doHandleStmt:
+      return .doHandleStmt(DoHandleStmtSyntax(self)!)
     case .doStmt:
       return .doStmt(DoStmtSyntax(self)!)
     case .expressionStmt:

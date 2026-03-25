@@ -102,6 +102,7 @@ public enum Keyword: UInt8, Hashable, Sendable {
   case `do`
   case dynamic
   case each
+  case effects
   case `else`
   case `enum`
   case escaping
@@ -119,6 +120,7 @@ public enum Keyword: UInt8, Hashable, Sendable {
   case freestanding
   case get
   case `guard`
+  case handle
   case higherThan
   case `if`
   case `import`
@@ -454,6 +456,8 @@ public enum Keyword: UInt8, Hashable, Sendable {
       self = .deinit
     case "didSet":
       self = .didSet
+    case "handle":
+      self = .handle
     case "import":
       self = .import
     case "linear":
@@ -507,6 +511,8 @@ public enum Keyword: UInt8, Hashable, Sendable {
       self = .default
     case "dynamic":
       self = .dynamic
+    case "effects":
+      self = .effects
     case "discard":
       self = .discard
     case "forward":
@@ -935,6 +941,7 @@ public enum Keyword: UInt8, Hashable, Sendable {
     "do",
     "dynamic",
     "each",
+    "effects",
     "else",
     "enum",
     "escaping",
@@ -952,6 +959,7 @@ public enum Keyword: UInt8, Hashable, Sendable {
     "freestanding",
     "get",
     "guard",
+    "handle",
     "higherThan",
     "if",
     "import",

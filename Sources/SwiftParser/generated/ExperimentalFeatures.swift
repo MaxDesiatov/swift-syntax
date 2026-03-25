@@ -58,8 +58,11 @@ extension Parser.ExperimentalFeatures {
   /// Whether to enable the parsing of constant-foldable literal expressions.
   public static let literalExpressions = Self (rawValue: 1 << 10)
 
+  /// Whether to enable the parsing of context effects.
+  public static let contextEffects = Self (rawValue: 1 << 11)
+
   /// Whether to enable the parsing of a test feature that parses everything as unexpected.
-  public static let _test_EverythingUnexpected = Self (rawValue: 1 << 11)
+  public static let _test_EverythingUnexpected = Self (rawValue: 1 << 12)
 
   /// Creates a new value representing the experimental feature with the
   /// given name, or returns nil if the name is not recognized.
@@ -87,6 +90,8 @@ extension Parser.ExperimentalFeatures {
       self = .borrowAndMutateAccessors
     case "LiteralExpressions":
       self = .literalExpressions
+    case "ContextEffects":
+      self = .contextEffects
     case "_test_EverythingUnexpected":
       self = ._test_EverythingUnexpected
     default:

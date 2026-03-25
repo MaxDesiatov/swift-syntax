@@ -274,6 +274,19 @@ extension EffectsAttributeArgumentListSyntax {
   }
 }
 
+// MARK: - EffectsTypeListBuilder
+
+@resultBuilder
+public struct EffectsTypeListBuilder: ListBuilder {
+  public typealias FinalResult = EffectsTypeListSyntax
+}
+
+extension EffectsTypeListSyntax {
+  public init(@EffectsTypeListBuilder itemsBuilder: () throws -> EffectsTypeListSyntax) rethrows {
+    self = try itemsBuilder()
+  }
+}
+
 // MARK: - EnumCaseElementListBuilder
 
 @resultBuilder
@@ -361,6 +374,19 @@ public struct GenericRequirementListBuilder: ListBuilder {
 
 extension GenericRequirementListSyntax {
   public init(@GenericRequirementListBuilder itemsBuilder: () throws -> GenericRequirementListSyntax) rethrows {
+    self = try itemsBuilder()
+  }
+}
+
+// MARK: - HandleClauseListBuilder
+
+@resultBuilder
+public struct HandleClauseListBuilder: ListBuilder {
+  public typealias FinalResult = HandleClauseListSyntax
+}
+
+extension HandleClauseListSyntax {
+  public init(@HandleClauseListBuilder itemsBuilder: () throws -> HandleClauseListSyntax) rethrows {
     self = try itemsBuilder()
   }
 }

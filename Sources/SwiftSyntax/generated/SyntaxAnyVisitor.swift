@@ -771,6 +771,14 @@ open class SyntaxAnyVisitor: SyntaxVisitor {
     visitAnyPost(node._syntaxNode)
   }
 
+  override open func visit(_ node: DoHandleStmtSyntax) -> SyntaxVisitorContinueKind {
+    return visitAny(node._syntaxNode)
+  }
+
+  override open func visitPost(_ node: DoHandleStmtSyntax) {
+    visitAnyPost(node._syntaxNode)
+  }
+
   override open func visit(_ node: DoStmtSyntax) -> SyntaxVisitorContinueKind {
     return visitAny(node._syntaxNode)
   }
@@ -824,6 +832,30 @@ open class SyntaxAnyVisitor: SyntaxVisitor {
   }
 
   override open func visitPost(_ node: EffectsAttributeArgumentListSyntax) {
+    visitAnyPost(node._syntaxNode)
+  }
+
+  override open func visit(_ node: EffectsClauseSyntax) -> SyntaxVisitorContinueKind {
+    return visitAny(node._syntaxNode)
+  }
+
+  override open func visitPost(_ node: EffectsClauseSyntax) {
+    visitAnyPost(node._syntaxNode)
+  }
+
+  override open func visit(_ node: EffectsTypeListElementSyntax) -> SyntaxVisitorContinueKind {
+    return visitAny(node._syntaxNode)
+  }
+
+  override open func visitPost(_ node: EffectsTypeListElementSyntax) {
+    visitAnyPost(node._syntaxNode)
+  }
+
+  override open func visit(_ node: EffectsTypeListSyntax) -> SyntaxVisitorContinueKind {
+    return visitAny(node._syntaxNode)
+  }
+
+  override open func visitPost(_ node: EffectsTypeListSyntax) {
     visitAnyPost(node._syntaxNode)
   }
 
@@ -1104,6 +1136,22 @@ open class SyntaxAnyVisitor: SyntaxVisitor {
   }
 
   override open func visitPost(_ node: GuardStmtSyntax) {
+    visitAnyPost(node._syntaxNode)
+  }
+
+  override open func visit(_ node: HandleClauseListSyntax) -> SyntaxVisitorContinueKind {
+    return visitAny(node._syntaxNode)
+  }
+
+  override open func visitPost(_ node: HandleClauseListSyntax) {
+    visitAnyPost(node._syntaxNode)
+  }
+
+  override open func visit(_ node: HandleClauseSyntax) -> SyntaxVisitorContinueKind {
+    return visitAny(node._syntaxNode)
+  }
+
+  override open func visitPost(_ node: HandleClauseSyntax) {
     visitAnyPost(node._syntaxNode)
   }
 
@@ -2382,6 +2430,14 @@ open class SyntaxAnyVisitor: SyntaxVisitor {
   }
 
   override open func visitPost(_ node: WildcardPatternSyntax) {
+    visitAnyPost(node._syntaxNode)
+  }
+
+  override open func visit(_ node: WithEffectExprSyntax) -> SyntaxVisitorContinueKind {
+    return visitAny(node._syntaxNode)
+  }
+
+  override open func visitPost(_ node: WithEffectExprSyntax) {
     visitAnyPost(node._syntaxNode)
   }
 

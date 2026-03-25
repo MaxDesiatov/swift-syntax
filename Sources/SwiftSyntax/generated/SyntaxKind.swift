@@ -109,6 +109,7 @@ public enum SyntaxKind: Sendable {
   case discardStmt
   @_spi(ExperimentalLanguageFeatures)
   case doExpr
+  case doHandleStmt
   case doStmt
   case documentationAttributeArgumentList
   case documentationAttributeArgument
@@ -116,6 +117,9 @@ public enum SyntaxKind: Sendable {
   case editorPlaceholderDecl
   case editorPlaceholderExpr
   case effectsAttributeArgumentList
+  case effectsClause
+  case effectsTypeListElement
+  case effectsTypeList
   case enumCaseDecl
   case enumCaseElementList
   case enumCaseElement
@@ -151,6 +155,8 @@ public enum SyntaxKind: Sendable {
   case genericSpecializationExpr
   case genericWhereClause
   case guardStmt
+  case handleClauseList
+  case handleClause
   case identifierPattern
   case identifierType
   case ifConfigClauseList
@@ -316,6 +322,7 @@ public enum SyntaxKind: Sendable {
   case whereClause
   case whileStmt
   case wildcardPattern
+  case withEffectExpr
   case yieldStmt
   case yieldedExpressionList
   case yieldedExpression
@@ -361,6 +368,8 @@ public enum SyntaxKind: Sendable {
       return true
     case .effectsAttributeArgumentList:
       return true
+    case .effectsTypeList:
+      return true
     case .enumCaseElementList:
       return true
     case .enumCaseParameterList:
@@ -374,6 +383,8 @@ public enum SyntaxKind: Sendable {
     case .genericParameterList:
       return true
     case .genericRequirementList:
+      return true
+    case .handleClauseList:
       return true
     case .ifConfigClauseList:
       return true
@@ -629,6 +640,8 @@ public enum SyntaxKind: Sendable {
       return DiscardStmtSyntax.self
     case .doExpr:
       return DoExprSyntax.self
+    case .doHandleStmt:
+      return DoHandleStmtSyntax.self
     case .doStmt:
       return DoStmtSyntax.self
     case .documentationAttributeArgumentList:
@@ -643,6 +656,12 @@ public enum SyntaxKind: Sendable {
       return EditorPlaceholderExprSyntax.self
     case .effectsAttributeArgumentList:
       return EffectsAttributeArgumentListSyntax.self
+    case .effectsClause:
+      return EffectsClauseSyntax.self
+    case .effectsTypeListElement:
+      return EffectsTypeListElementSyntax.self
+    case .effectsTypeList:
+      return EffectsTypeListSyntax.self
     case .enumCaseDecl:
       return EnumCaseDeclSyntax.self
     case .enumCaseElementList:
@@ -713,6 +732,10 @@ public enum SyntaxKind: Sendable {
       return GenericWhereClauseSyntax.self
     case .guardStmt:
       return GuardStmtSyntax.self
+    case .handleClauseList:
+      return HandleClauseListSyntax.self
+    case .handleClause:
+      return HandleClauseSyntax.self
     case .identifierPattern:
       return IdentifierPatternSyntax.self
     case .identifierType:
@@ -1029,6 +1052,8 @@ public enum SyntaxKind: Sendable {
       return WhileStmtSyntax.self
     case .wildcardPattern:
       return WildcardPatternSyntax.self
+    case .withEffectExpr:
+      return WithEffectExprSyntax.self
     case .yieldStmt:
       return YieldStmtSyntax.self
     case .yieldedExpressionList:

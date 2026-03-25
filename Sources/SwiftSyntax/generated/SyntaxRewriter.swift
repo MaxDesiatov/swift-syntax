@@ -720,6 +720,13 @@ open class SyntaxRewriter {
     return ExprSyntax(DoExprSyntax(unsafeCasting: visitChildren(node._syntaxNode)))
   }
 
+  /// Visit a ``DoHandleStmtSyntax``.
+  ///   - Parameter node: the node that is being visited
+  ///   - Returns: the rewritten node
+  open func visit(_ node: DoHandleStmtSyntax) -> StmtSyntax {
+    return StmtSyntax(DoHandleStmtSyntax(unsafeCasting: visitChildren(node._syntaxNode)))
+  }
+
   /// Visit a ``DoStmtSyntax``.
   ///   - Parameter node: the node that is being visited
   ///   - Returns: the rewritten node
@@ -767,6 +774,27 @@ open class SyntaxRewriter {
   ///   - Returns: the rewritten node
   open func visit(_ node: EffectsAttributeArgumentListSyntax) -> EffectsAttributeArgumentListSyntax {
     return EffectsAttributeArgumentListSyntax(unsafeCasting: visitChildren(node._syntaxNode))
+  }
+
+  /// Visit a ``EffectsClauseSyntax``.
+  ///   - Parameter node: the node that is being visited
+  ///   - Returns: the rewritten node
+  open func visit(_ node: EffectsClauseSyntax) -> EffectsClauseSyntax {
+    return EffectsClauseSyntax(unsafeCasting: visitChildren(node._syntaxNode))
+  }
+
+  /// Visit a ``EffectsTypeListElementSyntax``.
+  ///   - Parameter node: the node that is being visited
+  ///   - Returns: the rewritten node
+  open func visit(_ node: EffectsTypeListElementSyntax) -> EffectsTypeListElementSyntax {
+    return EffectsTypeListElementSyntax(unsafeCasting: visitChildren(node._syntaxNode))
+  }
+
+  /// Visit a ``EffectsTypeListSyntax``.
+  ///   - Parameter node: the node that is being visited
+  ///   - Returns: the rewritten node
+  open func visit(_ node: EffectsTypeListSyntax) -> EffectsTypeListSyntax {
+    return EffectsTypeListSyntax(unsafeCasting: visitChildren(node._syntaxNode))
   }
 
   /// Visit a ``EnumCaseDeclSyntax``.
@@ -1012,6 +1040,20 @@ open class SyntaxRewriter {
   ///   - Returns: the rewritten node
   open func visit(_ node: GuardStmtSyntax) -> StmtSyntax {
     return StmtSyntax(GuardStmtSyntax(unsafeCasting: visitChildren(node._syntaxNode)))
+  }
+
+  /// Visit a ``HandleClauseListSyntax``.
+  ///   - Parameter node: the node that is being visited
+  ///   - Returns: the rewritten node
+  open func visit(_ node: HandleClauseListSyntax) -> HandleClauseListSyntax {
+    return HandleClauseListSyntax(unsafeCasting: visitChildren(node._syntaxNode))
+  }
+
+  /// Visit a ``HandleClauseSyntax``.
+  ///   - Parameter node: the node that is being visited
+  ///   - Returns: the rewritten node
+  open func visit(_ node: HandleClauseSyntax) -> HandleClauseSyntax {
+    return HandleClauseSyntax(unsafeCasting: visitChildren(node._syntaxNode))
   }
 
   /// Visit a ``IdentifierPatternSyntax``.
@@ -2127,6 +2169,13 @@ open class SyntaxRewriter {
     return PatternSyntax(WildcardPatternSyntax(unsafeCasting: visitChildren(node._syntaxNode)))
   }
 
+  /// Visit a ``WithEffectExprSyntax``.
+  ///   - Parameter node: the node that is being visited
+  ///   - Returns: the rewritten node
+  open func visit(_ node: WithEffectExprSyntax) -> ExprSyntax {
+    return ExprSyntax(WithEffectExprSyntax(unsafeCasting: visitChildren(node._syntaxNode)))
+  }
+
   /// Visit a ``YieldStmtSyntax``.
   ///   - Parameter node: the node that is being visited
   ///   - Returns: the rewritten node
@@ -2636,6 +2685,11 @@ open class SyntaxRewriter {
   }
 
   @inline(never)
+  private func visitDoHandleStmtSyntaxImpl(_ node: Syntax) -> Syntax {
+    Syntax(visit(DoHandleStmtSyntax(unsafeCasting: node)))
+  }
+
+  @inline(never)
   private func visitDoStmtSyntaxImpl(_ node: Syntax) -> Syntax {
     Syntax(visit(DoStmtSyntax(unsafeCasting: node)))
   }
@@ -2668,6 +2722,21 @@ open class SyntaxRewriter {
   @inline(never)
   private func visitEffectsAttributeArgumentListSyntaxImpl(_ node: Syntax) -> Syntax {
     Syntax(visit(EffectsAttributeArgumentListSyntax(unsafeCasting: node)))
+  }
+
+  @inline(never)
+  private func visitEffectsClauseSyntaxImpl(_ node: Syntax) -> Syntax {
+    Syntax(visit(EffectsClauseSyntax(unsafeCasting: node)))
+  }
+
+  @inline(never)
+  private func visitEffectsTypeListElementSyntaxImpl(_ node: Syntax) -> Syntax {
+    Syntax(visit(EffectsTypeListElementSyntax(unsafeCasting: node)))
+  }
+
+  @inline(never)
+  private func visitEffectsTypeListSyntaxImpl(_ node: Syntax) -> Syntax {
+    Syntax(visit(EffectsTypeListSyntax(unsafeCasting: node)))
   }
 
   @inline(never)
@@ -2843,6 +2912,16 @@ open class SyntaxRewriter {
   @inline(never)
   private func visitGuardStmtSyntaxImpl(_ node: Syntax) -> Syntax {
     Syntax(visit(GuardStmtSyntax(unsafeCasting: node)))
+  }
+
+  @inline(never)
+  private func visitHandleClauseListSyntaxImpl(_ node: Syntax) -> Syntax {
+    Syntax(visit(HandleClauseListSyntax(unsafeCasting: node)))
+  }
+
+  @inline(never)
+  private func visitHandleClauseSyntaxImpl(_ node: Syntax) -> Syntax {
+    Syntax(visit(HandleClauseSyntax(unsafeCasting: node)))
   }
 
   @inline(never)
@@ -3636,6 +3715,11 @@ open class SyntaxRewriter {
   }
 
   @inline(never)
+  private func visitWithEffectExprSyntaxImpl(_ node: Syntax) -> Syntax {
+    Syntax(visit(WithEffectExprSyntax(unsafeCasting: node)))
+  }
+
+  @inline(never)
   private func visitYieldStmtSyntaxImpl(_ node: Syntax) -> Syntax {
     Syntax(visit(YieldStmtSyntax(unsafeCasting: node)))
   }
@@ -3859,6 +3943,8 @@ open class SyntaxRewriter {
       return self.visitDiscardStmtSyntaxImpl(_:)
     case .doExpr:
       return self.visitDoExprSyntaxImpl(_:)
+    case .doHandleStmt:
+      return self.visitDoHandleStmtSyntaxImpl(_:)
     case .doStmt:
       return self.visitDoStmtSyntaxImpl(_:)
     case .documentationAttributeArgumentList:
@@ -3873,6 +3959,12 @@ open class SyntaxRewriter {
       return self.visitEditorPlaceholderExprSyntaxImpl(_:)
     case .effectsAttributeArgumentList:
       return self.visitEffectsAttributeArgumentListSyntaxImpl(_:)
+    case .effectsClause:
+      return self.visitEffectsClauseSyntaxImpl(_:)
+    case .effectsTypeListElement:
+      return self.visitEffectsTypeListElementSyntaxImpl(_:)
+    case .effectsTypeList:
+      return self.visitEffectsTypeListSyntaxImpl(_:)
     case .enumCaseDecl:
       return self.visitEnumCaseDeclSyntaxImpl(_:)
     case .enumCaseElementList:
@@ -3943,6 +4035,10 @@ open class SyntaxRewriter {
       return self.visitGenericWhereClauseSyntaxImpl(_:)
     case .guardStmt:
       return self.visitGuardStmtSyntaxImpl(_:)
+    case .handleClauseList:
+      return self.visitHandleClauseListSyntaxImpl(_:)
+    case .handleClause:
+      return self.visitHandleClauseSyntaxImpl(_:)
     case .identifierPattern:
       return self.visitIdentifierPatternSyntaxImpl(_:)
     case .identifierType:
@@ -4259,6 +4355,8 @@ open class SyntaxRewriter {
       return self.visitWhileStmtSyntaxImpl(_:)
     case .wildcardPattern:
       return self.visitWildcardPatternSyntaxImpl(_:)
+    case .withEffectExpr:
+      return self.visitWithEffectExprSyntaxImpl(_:)
     case .yieldStmt:
       return self.visitYieldStmtSyntaxImpl(_:)
     case .yieldedExpressionList:
@@ -4453,6 +4551,8 @@ open class SyntaxRewriter {
       return visitDiscardStmtSyntaxImpl(node)
     case .doExpr:
       return visitDoExprSyntaxImpl(node)
+    case .doHandleStmt:
+      return visitDoHandleStmtSyntaxImpl(node)
     case .doStmt:
       return visitDoStmtSyntaxImpl(node)
     case .documentationAttributeArgumentList:
@@ -4467,6 +4567,12 @@ open class SyntaxRewriter {
       return visitEditorPlaceholderExprSyntaxImpl(node)
     case .effectsAttributeArgumentList:
       return visitEffectsAttributeArgumentListSyntaxImpl(node)
+    case .effectsClause:
+      return visitEffectsClauseSyntaxImpl(node)
+    case .effectsTypeListElement:
+      return visitEffectsTypeListElementSyntaxImpl(node)
+    case .effectsTypeList:
+      return visitEffectsTypeListSyntaxImpl(node)
     case .enumCaseDecl:
       return visitEnumCaseDeclSyntaxImpl(node)
     case .enumCaseElementList:
@@ -4537,6 +4643,10 @@ open class SyntaxRewriter {
       return visitGenericWhereClauseSyntaxImpl(node)
     case .guardStmt:
       return visitGuardStmtSyntaxImpl(node)
+    case .handleClauseList:
+      return visitHandleClauseListSyntaxImpl(node)
+    case .handleClause:
+      return visitHandleClauseSyntaxImpl(node)
     case .identifierPattern:
       return visitIdentifierPatternSyntaxImpl(node)
     case .identifierType:
@@ -4853,6 +4963,8 @@ open class SyntaxRewriter {
       return visitWhileStmtSyntaxImpl(node)
     case .wildcardPattern:
       return visitWildcardPatternSyntaxImpl(node)
+    case .withEffectExpr:
+      return visitWithEffectExprSyntaxImpl(node)
     case .yieldStmt:
       return visitYieldStmtSyntaxImpl(node)
     case .yieldedExpressionList:

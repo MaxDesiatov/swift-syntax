@@ -310,7 +310,7 @@ public class ParseDiagnosticsGenerator: SyntaxAnyVisitor {
     ]
 
     let unexpectedNodes = [
-      node.unexpectedBeforeAsyncSpecifier, node.unexpectedBetweenAsyncSpecifierAndThrowsClause,
+      node.unexpectedBetweenEffectsClauseAndAsyncSpecifier, node.unexpectedBetweenAsyncSpecifierAndThrowsClause,
       node.unexpectedAfterThrowsClause,
     ]
 

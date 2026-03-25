@@ -2172,6 +2172,32 @@ public let EXPR_NODES: [Node] = [
   ),
 
   Node(
+    kind: .withEffectExpr,
+    base: .expr,
+    nameForDiagnostics: "'withEffect' expression",
+    documentation: """
+      A `withEffect` expression for context effects.
+
+      ### Examples
+
+      ```swift
+      withEffect { (fs: inout FileSystem) in fs.readFile(at: path) }
+      ```
+      """,
+    children: [
+      Child(
+        name: "withEffectKeyword",
+        kind: .token(choices: [.token(.identifier)])
+      ),
+      Child(
+        name: "body",
+        kind: .node(kind: .expr),
+        documentation: "The closure expression providing the effect handler."
+      ),
+    ]
+  ),
+
+  Node(
     kind: .labeledExprList,
     base: .syntaxCollection,
     nameForDiagnostics: nil,

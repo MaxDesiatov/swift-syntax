@@ -403,6 +403,41 @@ extension DoExprSyntax {
   }
 }
 
+extension DoHandleStmtSyntax {
+  /// A convenience initializer that allows initializing syntax collections using result builders
+  public init(
+    leadingTrivia: Trivia? = nil,
+    unexpectedBeforeDoKeyword: UnexpectedNodesSyntax? = nil,
+    doKeyword: TokenSyntax = .keyword(.do),
+    unexpectedBetweenDoKeywordAndEffectsClause: UnexpectedNodesSyntax? = nil,
+    effectsClause: EffectsClauseSyntax? = nil,
+    unexpectedBetweenEffectsClauseAndBody: UnexpectedNodesSyntax? = nil,
+    unexpectedBetweenBodyAndHandleKeyword: UnexpectedNodesSyntax? = nil,
+    handleKeyword: TokenSyntax = .keyword(.handle),
+    unexpectedBetweenHandleKeywordAndHandleClauses: UnexpectedNodesSyntax? = nil,
+    handleClauses: HandleClauseListSyntax,
+    unexpectedAfterHandleClauses: UnexpectedNodesSyntax? = nil,
+    @CodeBlockItemListBuilder bodyBuilder: () throws -> CodeBlockItemListSyntax,
+    trailingTrivia: Trivia? = nil
+  ) rethrows {
+    try self.init(
+      leadingTrivia: leadingTrivia,
+      unexpectedBeforeDoKeyword,
+      doKeyword: doKeyword,
+      unexpectedBetweenDoKeywordAndEffectsClause,
+      effectsClause: effectsClause,
+      unexpectedBetweenEffectsClauseAndBody,
+      body: CodeBlockSyntax(statements: bodyBuilder()),
+      unexpectedBetweenBodyAndHandleKeyword,
+      handleKeyword: handleKeyword,
+      unexpectedBetweenHandleKeywordAndHandleClauses,
+      handleClauses: handleClauses,
+      unexpectedAfterHandleClauses,
+      trailingTrivia: trailingTrivia
+    )
+  }
+}
+
 extension DoStmtSyntax {
   /// A convenience initializer that allows initializing syntax collections using result builders
   public init(

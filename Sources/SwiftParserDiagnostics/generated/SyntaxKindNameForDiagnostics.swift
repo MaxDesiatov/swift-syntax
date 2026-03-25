@@ -144,6 +144,8 @@ extension SyntaxKind {
       return "'discard' statement"
     case .doExpr:
       return "'do' block"
+    case .doHandleStmt:
+      return "'do...handle' statement"
     case .doStmt:
       return "'do' statement"
     case .documentationAttributeArgumentList:
@@ -158,6 +160,12 @@ extension SyntaxKind {
       return "editor placeholder"
     case .effectsAttributeArgumentList:
       return "@_effects arguments"
+    case .effectsClause:
+      return "effects clause"
+    case .effectsTypeListElement:
+      return "effect type"
+    case .effectsTypeList:
+      return "effect type list"
     case .enumCaseDecl:
       return "enum case"
     case .enumCaseParameterClause:
@@ -210,6 +218,10 @@ extension SyntaxKind {
       return "'where' clause"
     case .guardStmt:
       return "'guard' statement"
+    case .handleClauseList:
+      return "'handle' clause"
+    case .handleClause:
+      return "'handle' clause"
     case .identifierPattern:
       return "pattern"
     case .identifierType:
@@ -424,6 +436,8 @@ extension SyntaxKind {
       return "'while' statement"
     case .wildcardPattern:
       return "wildcard pattern"
+    case .withEffectExpr:
+      return "'withEffect' expression"
     case .yieldStmt:
       return "'yield' statement"
     case .yieldedExpressionList:

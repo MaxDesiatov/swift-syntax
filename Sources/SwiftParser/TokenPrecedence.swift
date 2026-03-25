@@ -202,6 +202,7 @@ enum TokenPrecedence: Comparable {
       // We don't know much about which contextual keyword it is, be conservative an allow considering it as unexpected.
       // Keywords in function types (we should be allowed to skip them inside parenthesis)
       .rethrows, .throws, .reasync, .async,
+      .effects,
       // Consider 'any' a prefix operator to a type and a type is expression-like.
       .Any,
       // 'where' can only occur in the signature of declarations. Consider the signature expression-like.
@@ -211,7 +212,7 @@ enum TokenPrecedence: Comparable {
     case  // Control-flow constructs
     .defer, .do, .for, .guard, .if, .repeat, .switch, .while,
       // Secondary parts of control-flow constructs
-      .case, .catch, .default, .else,
+      .case, .catch, .default, .else, .handle,
       // Return-like statements
       .break, .continue, .fallthrough, .return, .throw, .then, .yield,
       // 'in' occurs in closure input/output definitions and for loops. Consider both constructs expression-like.

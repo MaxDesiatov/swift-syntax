@@ -136,7 +136,17 @@ extension SyntaxProtocol {
 // MARK: - EffectSpecifiersSyntax
 
 public protocol EffectSpecifiersSyntax: SyntaxProtocol {
-  var unexpectedBeforeAsyncSpecifier: UnexpectedNodesSyntax? {
+  var unexpectedBeforeEffectsClause: UnexpectedNodesSyntax? {
+    get
+    set
+  }
+
+  var effectsClause: EffectsClauseSyntax? {
+    get
+    set
+  }
+
+  var unexpectedBetweenEffectsClauseAndAsyncSpecifier: UnexpectedNodesSyntax? {
     get
     set
   }
@@ -732,6 +742,8 @@ extension DictionaryElementSyntax: WithTrailingCommaSyntax {}
 extension DifferentiabilityArgumentSyntax: WithTrailingCommaSyntax {}
 
 extension DoExprSyntax: WithCodeBlockSyntax {}
+
+extension DoHandleStmtSyntax: WithCodeBlockSyntax {}
 
 extension DoStmtSyntax: WithCodeBlockSyntax {}
 

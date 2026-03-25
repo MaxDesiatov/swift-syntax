@@ -586,6 +586,24 @@ extension Parser {
       return RawExprSyntax(RawTypeExprSyntax(type: type, arena: self.arena))
 
     case nil:
+      // Check for 'withEffect' contextual identifier (not a keyword).
+      if self.experimentalFeatures.contains(.contextEffects),
+         self.at(.identifier),
+         self.currentToken.tokenText == "withEffect"
+      {
+        let withEffectKeyword = self.consumeAnyToken()
+        let expression = self.parseSequenceExpressionElement(
+          flavor: flavor,
+          pattern: pattern
+        )
+        return RawExprSyntax(
+          RawWithEffectExprSyntax(
+            withEffectKeyword: withEffectKeyword,
+            body: expression,
+            arena: self.arena
+          )
+        )
+      }
       break
     }
     return nil
@@ -2698,18 +2716,33 @@ extension Parser {
 // MARK: Lookahead
 
 extension Parser.Lookahead {
-  // Consume 'async', 'throws', and 'rethrows', but in any order.
+  // Consume 'async', 'throws', 'rethrows', and 'effects', but in any order.
   mutating func consumeEffectsSpecifiers() {
     var loopProgress = LoopProgressCondition()
-    while let (spec, handle) = self.at(anyIn: EffectSpecifier.self),
-      self.hasProgressed(&loopProgress)
-    {
-      self.eat(handle)
+    while self.hasProgressed(&loopProgress) {
+      if let (spec, handle) = self.at(anyIn: EffectSpecifier.self) {
+        self.eat(handle)
 
-      if spec.isThrowsSpecifier, self.consume(if: .leftParen) != nil {
-        _ = self.canParseSimpleOrCompositionType()
-        self.consume(if: .rightParen)
+        if spec.isThrowsSpecifier, self.consume(if: .leftParen) != nil {
+          _ = self.canParseSimpleOrCompositionType()
+          self.consume(if: .rightParen)
+        }
+        continue
       }
+
+      // Handle 'effects(...)' (gated on ContextEffects feature)
+      if self.experimentalFeatures.contains(.contextEffects),
+         self.at(.keyword(.effects))
+      {
+        self.consumeAnyToken()
+        if self.consume(if: .leftParen) != nil {
+          _ = self.canParseSimpleOrCompositionType()
+          self.consume(if: .rightParen)
+        }
+        continue
+      }
+
+      break
     }
   }
 

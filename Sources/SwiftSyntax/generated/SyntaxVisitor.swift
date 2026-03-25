@@ -1101,6 +1101,18 @@ open class SyntaxVisitor {
   open func visitPost(_ node: DoExprSyntax) {
   }
 
+  /// Visiting ``DoHandleStmtSyntax`` specifically.
+  ///   - Parameter node: the node we are visiting.
+  ///   - Returns: how should we continue visiting.
+  open func visit(_ node: DoHandleStmtSyntax) -> SyntaxVisitorContinueKind {
+    return .visitChildren
+  }
+
+  /// The function called after visiting ``DoHandleStmtSyntax`` and its descendants.
+  ///   - node: the node we just finished visiting.
+  open func visitPost(_ node: DoHandleStmtSyntax) {
+  }
+
   /// Visiting ``DoStmtSyntax`` specifically.
   ///   - Parameter node: the node we are visiting.
   ///   - Returns: how should we continue visiting.
@@ -1183,6 +1195,42 @@ open class SyntaxVisitor {
   /// The function called after visiting ``EffectsAttributeArgumentListSyntax`` and its descendants.
   ///   - node: the node we just finished visiting.
   open func visitPost(_ node: EffectsAttributeArgumentListSyntax) {
+  }
+
+  /// Visiting ``EffectsClauseSyntax`` specifically.
+  ///   - Parameter node: the node we are visiting.
+  ///   - Returns: how should we continue visiting.
+  open func visit(_ node: EffectsClauseSyntax) -> SyntaxVisitorContinueKind {
+    return .visitChildren
+  }
+
+  /// The function called after visiting ``EffectsClauseSyntax`` and its descendants.
+  ///   - node: the node we just finished visiting.
+  open func visitPost(_ node: EffectsClauseSyntax) {
+  }
+
+  /// Visiting ``EffectsTypeListElementSyntax`` specifically.
+  ///   - Parameter node: the node we are visiting.
+  ///   - Returns: how should we continue visiting.
+  open func visit(_ node: EffectsTypeListElementSyntax) -> SyntaxVisitorContinueKind {
+    return .visitChildren
+  }
+
+  /// The function called after visiting ``EffectsTypeListElementSyntax`` and its descendants.
+  ///   - node: the node we just finished visiting.
+  open func visitPost(_ node: EffectsTypeListElementSyntax) {
+  }
+
+  /// Visiting ``EffectsTypeListSyntax`` specifically.
+  ///   - Parameter node: the node we are visiting.
+  ///   - Returns: how should we continue visiting.
+  open func visit(_ node: EffectsTypeListSyntax) -> SyntaxVisitorContinueKind {
+    return .visitChildren
+  }
+
+  /// The function called after visiting ``EffectsTypeListSyntax`` and its descendants.
+  ///   - node: the node we just finished visiting.
+  open func visitPost(_ node: EffectsTypeListSyntax) {
   }
 
   /// Visiting ``EnumCaseDeclSyntax`` specifically.
@@ -1603,6 +1651,30 @@ open class SyntaxVisitor {
   /// The function called after visiting ``GuardStmtSyntax`` and its descendants.
   ///   - node: the node we just finished visiting.
   open func visitPost(_ node: GuardStmtSyntax) {
+  }
+
+  /// Visiting ``HandleClauseListSyntax`` specifically.
+  ///   - Parameter node: the node we are visiting.
+  ///   - Returns: how should we continue visiting.
+  open func visit(_ node: HandleClauseListSyntax) -> SyntaxVisitorContinueKind {
+    return .visitChildren
+  }
+
+  /// The function called after visiting ``HandleClauseListSyntax`` and its descendants.
+  ///   - node: the node we just finished visiting.
+  open func visitPost(_ node: HandleClauseListSyntax) {
+  }
+
+  /// Visiting ``HandleClauseSyntax`` specifically.
+  ///   - Parameter node: the node we are visiting.
+  ///   - Returns: how should we continue visiting.
+  open func visit(_ node: HandleClauseSyntax) -> SyntaxVisitorContinueKind {
+    return .visitChildren
+  }
+
+  /// The function called after visiting ``HandleClauseSyntax`` and its descendants.
+  ///   - node: the node we just finished visiting.
+  open func visitPost(_ node: HandleClauseSyntax) {
   }
 
   /// Visiting ``IdentifierPatternSyntax`` specifically.
@@ -3515,6 +3587,18 @@ open class SyntaxVisitor {
   open func visitPost(_ node: WildcardPatternSyntax) {
   }
 
+  /// Visiting ``WithEffectExprSyntax`` specifically.
+  ///   - Parameter node: the node we are visiting.
+  ///   - Returns: how should we continue visiting.
+  open func visit(_ node: WithEffectExprSyntax) -> SyntaxVisitorContinueKind {
+    return .visitChildren
+  }
+
+  /// The function called after visiting ``WithEffectExprSyntax`` and its descendants.
+  ///   - node: the node we just finished visiting.
+  open func visitPost(_ node: WithEffectExprSyntax) {
+  }
+
   /// Visiting ``YieldStmtSyntax`` specifically.
   ///   - Parameter node: the node we are visiting.
   ///   - Returns: how should we continue visiting.
@@ -4287,6 +4371,14 @@ open class SyntaxVisitor {
   }
 
   @inline(never)
+  private func visitDoHandleStmtSyntaxImpl(_ node: Syntax) {
+    if visit(DoHandleStmtSyntax(unsafeCasting: node)) == .visitChildren {
+      visitChildren(node)
+    }
+    visitPost(DoHandleStmtSyntax(unsafeCasting: node))
+  }
+
+  @inline(never)
   private func visitDoStmtSyntaxImpl(_ node: Syntax) {
     if visit(DoStmtSyntax(unsafeCasting: node)) == .visitChildren {
       visitChildren(node)
@@ -4340,6 +4432,30 @@ open class SyntaxVisitor {
       visitChildren(node)
     }
     visitPost(EffectsAttributeArgumentListSyntax(unsafeCasting: node))
+  }
+
+  @inline(never)
+  private func visitEffectsClauseSyntaxImpl(_ node: Syntax) {
+    if visit(EffectsClauseSyntax(unsafeCasting: node)) == .visitChildren {
+      visitChildren(node)
+    }
+    visitPost(EffectsClauseSyntax(unsafeCasting: node))
+  }
+
+  @inline(never)
+  private func visitEffectsTypeListElementSyntaxImpl(_ node: Syntax) {
+    if visit(EffectsTypeListElementSyntax(unsafeCasting: node)) == .visitChildren {
+      visitChildren(node)
+    }
+    visitPost(EffectsTypeListElementSyntax(unsafeCasting: node))
+  }
+
+  @inline(never)
+  private func visitEffectsTypeListSyntaxImpl(_ node: Syntax) {
+    if visit(EffectsTypeListSyntax(unsafeCasting: node)) == .visitChildren {
+      visitChildren(node)
+    }
+    visitPost(EffectsTypeListSyntax(unsafeCasting: node))
   }
 
   @inline(never)
@@ -4620,6 +4736,22 @@ open class SyntaxVisitor {
       visitChildren(node)
     }
     visitPost(GuardStmtSyntax(unsafeCasting: node))
+  }
+
+  @inline(never)
+  private func visitHandleClauseListSyntaxImpl(_ node: Syntax) {
+    if visit(HandleClauseListSyntax(unsafeCasting: node)) == .visitChildren {
+      visitChildren(node)
+    }
+    visitPost(HandleClauseListSyntax(unsafeCasting: node))
+  }
+
+  @inline(never)
+  private func visitHandleClauseSyntaxImpl(_ node: Syntax) {
+    if visit(HandleClauseSyntax(unsafeCasting: node)) == .visitChildren {
+      visitChildren(node)
+    }
+    visitPost(HandleClauseSyntax(unsafeCasting: node))
   }
 
   @inline(never)
@@ -5887,6 +6019,14 @@ open class SyntaxVisitor {
   }
 
   @inline(never)
+  private func visitWithEffectExprSyntaxImpl(_ node: Syntax) {
+    if visit(WithEffectExprSyntax(unsafeCasting: node)) == .visitChildren {
+      visitChildren(node)
+    }
+    visitPost(WithEffectExprSyntax(unsafeCasting: node))
+  }
+
+  @inline(never)
   private func visitYieldStmtSyntaxImpl(_ node: Syntax) {
     if visit(YieldStmtSyntax(unsafeCasting: node)) == .visitChildren {
       visitChildren(node)
@@ -6122,6 +6262,8 @@ open class SyntaxVisitor {
       return self.visitDiscardStmtSyntaxImpl(_:)
     case .doExpr:
       return self.visitDoExprSyntaxImpl(_:)
+    case .doHandleStmt:
+      return self.visitDoHandleStmtSyntaxImpl(_:)
     case .doStmt:
       return self.visitDoStmtSyntaxImpl(_:)
     case .documentationAttributeArgumentList:
@@ -6136,6 +6278,12 @@ open class SyntaxVisitor {
       return self.visitEditorPlaceholderExprSyntaxImpl(_:)
     case .effectsAttributeArgumentList:
       return self.visitEffectsAttributeArgumentListSyntaxImpl(_:)
+    case .effectsClause:
+      return self.visitEffectsClauseSyntaxImpl(_:)
+    case .effectsTypeListElement:
+      return self.visitEffectsTypeListElementSyntaxImpl(_:)
+    case .effectsTypeList:
+      return self.visitEffectsTypeListSyntaxImpl(_:)
     case .enumCaseDecl:
       return self.visitEnumCaseDeclSyntaxImpl(_:)
     case .enumCaseElementList:
@@ -6206,6 +6354,10 @@ open class SyntaxVisitor {
       return self.visitGenericWhereClauseSyntaxImpl(_:)
     case .guardStmt:
       return self.visitGuardStmtSyntaxImpl(_:)
+    case .handleClauseList:
+      return self.visitHandleClauseListSyntaxImpl(_:)
+    case .handleClause:
+      return self.visitHandleClauseSyntaxImpl(_:)
     case .identifierPattern:
       return self.visitIdentifierPatternSyntaxImpl(_:)
     case .identifierType:
@@ -6522,6 +6674,8 @@ open class SyntaxVisitor {
       return self.visitWhileStmtSyntaxImpl(_:)
     case .wildcardPattern:
       return self.visitWildcardPatternSyntaxImpl(_:)
+    case .withEffectExpr:
+      return self.visitWithEffectExprSyntaxImpl(_:)
     case .yieldStmt:
       return self.visitYieldStmtSyntaxImpl(_:)
     case .yieldedExpressionList:
@@ -6716,6 +6870,8 @@ open class SyntaxVisitor {
       self.visitDiscardStmtSyntaxImpl(node)
     case .doExpr:
       self.visitDoExprSyntaxImpl(node)
+    case .doHandleStmt:
+      self.visitDoHandleStmtSyntaxImpl(node)
     case .doStmt:
       self.visitDoStmtSyntaxImpl(node)
     case .documentationAttributeArgumentList:
@@ -6730,6 +6886,12 @@ open class SyntaxVisitor {
       self.visitEditorPlaceholderExprSyntaxImpl(node)
     case .effectsAttributeArgumentList:
       self.visitEffectsAttributeArgumentListSyntaxImpl(node)
+    case .effectsClause:
+      self.visitEffectsClauseSyntaxImpl(node)
+    case .effectsTypeListElement:
+      self.visitEffectsTypeListElementSyntaxImpl(node)
+    case .effectsTypeList:
+      self.visitEffectsTypeListSyntaxImpl(node)
     case .enumCaseDecl:
       self.visitEnumCaseDeclSyntaxImpl(node)
     case .enumCaseElementList:
@@ -6800,6 +6962,10 @@ open class SyntaxVisitor {
       self.visitGenericWhereClauseSyntaxImpl(node)
     case .guardStmt:
       self.visitGuardStmtSyntaxImpl(node)
+    case .handleClauseList:
+      self.visitHandleClauseListSyntaxImpl(node)
+    case .handleClause:
+      self.visitHandleClauseSyntaxImpl(node)
     case .identifierPattern:
       self.visitIdentifierPatternSyntaxImpl(node)
     case .identifierType:
@@ -7116,6 +7282,8 @@ open class SyntaxVisitor {
       self.visitWhileStmtSyntaxImpl(node)
     case .wildcardPattern:
       self.visitWildcardPatternSyntaxImpl(node)
+    case .withEffectExpr:
+      self.visitWithEffectExprSyntaxImpl(node)
     case .yieldStmt:
       self.visitYieldStmtSyntaxImpl(node)
     case .yieldedExpressionList:

@@ -113,6 +113,60 @@ public let COMMON_NODES: [Node] = [
   ),
 
   Node(
+    kind: .effectsTypeList,
+    base: .syntaxCollection,
+    nameForDiagnostics: "effect type list",
+    elementChoices: [.effectsTypeListElement]
+  ),
+
+  Node(
+    kind: .effectsTypeListElement,
+    base: .syntax,
+    nameForDiagnostics: "effect type",
+    children: [
+      Child(
+        name: "type",
+        kind: .node(kind: .type),
+        documentation: "The effect type."
+      ),
+      Child(
+        name: "trailingComma",
+        kind: .token(choices: [.token(.comma)]),
+        documentation: "A trailing comma if there are more effect types.",
+        isOptional: true
+      ),
+    ]
+  ),
+
+  Node(
+    kind: .effectsClause,
+    base: .syntax,
+    nameForDiagnostics: "effects clause",
+    children: [
+      Child(
+        name: "effectsSpecifier",
+        kind: .token(choices: [.keyword(.effects)]),
+        documentation: "The `effects` keyword."
+      ),
+      Child(
+        name: "leftParen",
+        kind: .token(choices: [.token(.leftParen)]),
+        documentation: "The '(' to open the effect type list."
+      ),
+      Child(
+        name: "types",
+        kind: .collection(kind: .effectsTypeList, collectionElementName: "EffectsType"),
+        documentation: "The list of effect types."
+      ),
+      Child(
+        name: "rightParen",
+        kind: .token(choices: [.token(.rightParen)]),
+        documentation: "The ')' to close the effect type list."
+      ),
+    ]
+  ),
+
+  Node(
     kind: .accessorEffectSpecifiers,
     base: .syntax,
     nameForDiagnostics: "accessor specifiers",
@@ -120,6 +174,12 @@ public let COMMON_NODES: [Node] = [
       "EffectSpecifiers"
     ],
     children: [
+      Child(
+        name: "effectsClause",
+        kind: .node(kind: .effectsClause),
+        documentation: "The clause specifying declared context effects.",
+        isOptional: true
+      ),
       Child(
         name: "asyncSpecifier",
         kind: .token(choices: [.keyword(.async)]),
@@ -143,6 +203,12 @@ public let COMMON_NODES: [Node] = [
       "EffectSpecifiers"
     ],
     children: [
+      Child(
+        name: "effectsClause",
+        kind: .node(kind: .effectsClause),
+        documentation: "The clause specifying declared context effects.",
+        isOptional: true
+      ),
       Child(
         name: "asyncSpecifier",
         kind: .token(choices: [.keyword(.async), .keyword(.reasync)]),
@@ -370,6 +436,12 @@ public let COMMON_NODES: [Node] = [
       "EffectSpecifiers"
     ],
     children: [
+      Child(
+        name: "effectsClause",
+        kind: .node(kind: .effectsClause),
+        documentation: "The clause specifying declared context effects.",
+        isOptional: true
+      ),
       Child(
         name: "asyncSpecifier",
         kind: .token(choices: [.keyword(.async)]),

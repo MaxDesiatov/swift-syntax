@@ -99,6 +99,8 @@ private func childNameForDiagnostics(_ keyPath: AnyKeyPath) -> String? {
     return "arguments"
   case \DoExprSyntax.body:
     return "body"
+  case \DoHandleStmtSyntax.body:
+    return "body"
   case \DoStmtSyntax.body:
     return "body"
   case \DocumentationAttributeArgumentSyntax.label:

@@ -24,6 +24,7 @@ public enum ExperimentalFeature: String, CaseIterable {
   case defaultIsolationPerFile
   case borrowAndMutateAccessors
   case literalExpressions
+  case contextEffects
   case _test_EverythingUnexpected
 
   /// The name of the feature as it is written in the compiler's `Features.def` file.
@@ -51,6 +52,8 @@ public enum ExperimentalFeature: String, CaseIterable {
       return "BorrowAndMutateAccessors"
     case .literalExpressions:
       return "LiteralExpressions"
+    case .contextEffects:
+      return "ContextEffects"
     case ._test_EverythingUnexpected:
       return "_test_EverythingUnexpected"
     }
@@ -81,6 +84,8 @@ public enum ExperimentalFeature: String, CaseIterable {
       return "borrow and mutate accessors"
     case .literalExpressions:
       return "constant-foldable literal expressions"
+    case .contextEffects:
+      return "context effects"
     case ._test_EverythingUnexpected:
       return "a test feature that parses everything as unexpected"
     }

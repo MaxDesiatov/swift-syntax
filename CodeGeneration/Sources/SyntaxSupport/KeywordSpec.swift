@@ -159,6 +159,7 @@ public enum Keyword: CaseIterable {
   case `do`
   case dynamic
   case each
+  case effects
   case `else`
   case `enum`
   case escaping
@@ -176,6 +177,7 @@ public enum Keyword: CaseIterable {
   case freestanding
   case get
   case `guard`
+  case handle
   case higherThan
   case `if`
   case `import`
@@ -453,6 +455,8 @@ public enum Keyword: CaseIterable {
       return KeywordSpec("dynamic")
     case .each:
       return KeywordSpec("each")
+    case .effects:
+      return KeywordSpec("effects")
     case .else:
       return KeywordSpec("else", isLexerClassified: true)
     case .enum:
@@ -487,6 +491,8 @@ public enum Keyword: CaseIterable {
       return KeywordSpec("get")
     case .guard:
       return KeywordSpec("guard", isLexerClassified: true)
+    case .handle:
+      return KeywordSpec("handle")
     case .higherThan:
       return KeywordSpec("higherThan")
     case .if:

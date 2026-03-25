@@ -509,6 +509,7 @@ extension Syntax {
 /// - ``UnresolvedIsExprSyntax``
 /// - ``UnresolvedTernaryExprSyntax``
 /// - ``UnsafeExprSyntax``
+/// - ``WithEffectExprSyntax``
 public struct ExprSyntax: ExprSyntaxProtocol, SyntaxHashable {
   public let _syntaxNode: Syntax
 
@@ -543,7 +544,7 @@ public struct ExprSyntax: ExprSyntaxProtocol, SyntaxHashable {
 
   public init?(_ node: __shared some SyntaxProtocol) {
     switch node.raw.kind {
-    case .arrayExpr, .arrowExpr, .asExpr, .assignmentExpr, .awaitExpr, .binaryOperatorExpr, .booleanLiteralExpr, .borrowExpr, ._canImportExpr, ._canImportVersionInfo, .closureExpr, .consumeExpr, .copyExpr, .declReferenceExpr, .dictionaryExpr, .discardAssignmentExpr, .doExpr, .editorPlaceholderExpr, .floatLiteralExpr, .forceUnwrapExpr, .functionCallExpr, .genericSpecializationExpr, .ifExpr, .inOutExpr, .infixOperatorExpr, .integerLiteralExpr, .isExpr, .keyPathExpr, .macroExpansionExpr, .memberAccessExpr, .missingExpr, .nilLiteralExpr, .optionalChainingExpr, .packElementExpr, .packExpansionExpr, .patternExpr, .postfixIfConfigExpr, .postfixOperatorExpr, .prefixOperatorExpr, .regexLiteralExpr, .sequenceExpr, .simpleStringLiteralExpr, .stringLiteralExpr, .subscriptCallExpr, .superExpr, .switchExpr, .ternaryExpr, .tryExpr, .tupleExpr, .typeExpr, .unresolvedAsExpr, .unresolvedIsExpr, .unresolvedTernaryExpr, .unsafeExpr:
+    case .arrayExpr, .arrowExpr, .asExpr, .assignmentExpr, .awaitExpr, .binaryOperatorExpr, .booleanLiteralExpr, .borrowExpr, ._canImportExpr, ._canImportVersionInfo, .closureExpr, .consumeExpr, .copyExpr, .declReferenceExpr, .dictionaryExpr, .discardAssignmentExpr, .doExpr, .editorPlaceholderExpr, .floatLiteralExpr, .forceUnwrapExpr, .functionCallExpr, .genericSpecializationExpr, .ifExpr, .inOutExpr, .infixOperatorExpr, .integerLiteralExpr, .isExpr, .keyPathExpr, .macroExpansionExpr, .memberAccessExpr, .missingExpr, .nilLiteralExpr, .optionalChainingExpr, .packElementExpr, .packExpansionExpr, .patternExpr, .postfixIfConfigExpr, .postfixOperatorExpr, .prefixOperatorExpr, .regexLiteralExpr, .sequenceExpr, .simpleStringLiteralExpr, .stringLiteralExpr, .subscriptCallExpr, .superExpr, .switchExpr, .ternaryExpr, .tryExpr, .tupleExpr, .typeExpr, .unresolvedAsExpr, .unresolvedIsExpr, .unresolvedTernaryExpr, .unsafeExpr, .withEffectExpr:
       self._syntaxNode = node._syntaxNode
     default:
       return nil
@@ -621,7 +622,8 @@ public struct ExprSyntax: ExprSyntaxProtocol, SyntaxHashable {
       .node(UnresolvedAsExprSyntax.self),
       .node(UnresolvedIsExprSyntax.self),
       .node(UnresolvedTernaryExprSyntax.self),
-      .node(UnsafeExprSyntax.self)
+      .node(UnsafeExprSyntax.self),
+      .node(WithEffectExprSyntax.self)
     ])
   }
 }
@@ -1083,6 +1085,7 @@ extension Syntax {
 /// - ``ContinueStmtSyntax``
 /// - ``DeferStmtSyntax``
 /// - ``DiscardStmtSyntax``
+/// - ``DoHandleStmtSyntax``
 /// - ``DoStmtSyntax``
 /// - ``ExpressionStmtSyntax``
 /// - ``FallThroughStmtSyntax``
@@ -1129,7 +1132,7 @@ public struct StmtSyntax: StmtSyntaxProtocol, SyntaxHashable {
 
   public init?(_ node: __shared some SyntaxProtocol) {
     switch node.raw.kind {
-    case .breakStmt, .continueStmt, .deferStmt, .discardStmt, .doStmt, .expressionStmt, .fallThroughStmt, .forStmt, .guardStmt, .labeledStmt, .missingStmt, .repeatStmt, .returnStmt, .thenStmt, .throwStmt, .whileStmt, .yieldStmt:
+    case .breakStmt, .continueStmt, .deferStmt, .discardStmt, .doHandleStmt, .doStmt, .expressionStmt, .fallThroughStmt, .forStmt, .guardStmt, .labeledStmt, .missingStmt, .repeatStmt, .returnStmt, .thenStmt, .throwStmt, .whileStmt, .yieldStmt:
       self._syntaxNode = node._syntaxNode
     default:
       return nil
@@ -1158,6 +1161,7 @@ public struct StmtSyntax: StmtSyntaxProtocol, SyntaxHashable {
       .node(ContinueStmtSyntax.self),
       .node(DeferStmtSyntax.self),
       .node(DiscardStmtSyntax.self),
+      .node(DoHandleStmtSyntax.self),
       .node(DoStmtSyntax.self),
       .node(ExpressionStmtSyntax.self),
       .node(FallThroughStmtSyntax.self),
@@ -1603,6 +1607,7 @@ extension Syntax {
       .node(DiscardAssignmentExprSyntax.self),
       .node(DiscardStmtSyntax.self),
       .node(DoExprSyntax.self),
+      .node(DoHandleStmtSyntax.self),
       .node(DoStmtSyntax.self),
       .node(DocumentationAttributeArgumentListSyntax.self),
       .node(DocumentationAttributeArgumentSyntax.self),
@@ -1610,6 +1615,9 @@ extension Syntax {
       .node(EditorPlaceholderDeclSyntax.self),
       .node(EditorPlaceholderExprSyntax.self),
       .node(EffectsAttributeArgumentListSyntax.self),
+      .node(EffectsClauseSyntax.self),
+      .node(EffectsTypeListElementSyntax.self),
+      .node(EffectsTypeListSyntax.self),
       .node(EnumCaseDeclSyntax.self),
       .node(EnumCaseElementListSyntax.self),
       .node(EnumCaseElementSyntax.self),
@@ -1645,6 +1653,8 @@ extension Syntax {
       .node(GenericSpecializationExprSyntax.self),
       .node(GenericWhereClauseSyntax.self),
       .node(GuardStmtSyntax.self),
+      .node(HandleClauseListSyntax.self),
+      .node(HandleClauseSyntax.self),
       .node(IdentifierPatternSyntax.self),
       .node(IdentifierTypeSyntax.self),
       .node(IfConfigClauseListSyntax.self),
@@ -1803,6 +1813,7 @@ extension Syntax {
       .node(WhereClauseSyntax.self),
       .node(WhileStmtSyntax.self),
       .node(WildcardPatternSyntax.self),
+      .node(WithEffectExprSyntax.self),
       .node(YieldStmtSyntax.self),
       .node(YieldedExpressionListSyntax.self),
       .node(YieldedExpressionSyntax.self),

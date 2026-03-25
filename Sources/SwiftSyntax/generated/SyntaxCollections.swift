@@ -693,6 +693,33 @@ public struct EffectsAttributeArgumentListSyntax: SyntaxCollection, SyntaxHashab
   public static let syntaxKind = SyntaxKind.effectsAttributeArgumentList
 }
 
+/// ### Children
+/// 
+/// ``EffectsTypeListElementSyntax`` `*`
+///
+/// ### Contained in
+/// 
+///  - ``EffectsClauseSyntax``.``EffectsClauseSyntax/types``
+public struct EffectsTypeListSyntax: SyntaxCollection, SyntaxHashable {
+  public typealias Element = EffectsTypeListElementSyntax
+
+  public let _syntaxNode: Syntax
+
+  public init?(_ node: some SyntaxProtocol) {
+    guard node.raw.kind == .effectsTypeList else {
+      return nil
+    }
+    self._syntaxNode = node._syntaxNode
+  }
+
+  @_transparent
+  init(unsafeCasting node: Syntax) {
+    self._syntaxNode = node
+  }
+
+  public static let syntaxKind = SyntaxKind.effectsTypeList
+}
+
 /// A collection of 0 or more ``EnumCaseElementSyntax``s.
 ///
 /// ### Children
@@ -895,6 +922,33 @@ public struct GenericRequirementListSyntax: SyntaxCollection, SyntaxHashable {
   }
 
   public static let syntaxKind = SyntaxKind.genericRequirementList
+}
+
+/// ### Children
+/// 
+/// ``HandleClauseSyntax`` `*`
+///
+/// ### Contained in
+/// 
+///  - ``DoHandleStmtSyntax``.``DoHandleStmtSyntax/handleClauses``
+public struct HandleClauseListSyntax: SyntaxCollection, SyntaxHashable {
+  public typealias Element = HandleClauseSyntax
+
+  public let _syntaxNode: Syntax
+
+  public init?(_ node: some SyntaxProtocol) {
+    guard node.raw.kind == .handleClauseList else {
+      return nil
+    }
+    self._syntaxNode = node._syntaxNode
+  }
+
+  @_transparent
+  init(unsafeCasting node: Syntax) {
+    self._syntaxNode = node
+  }
+
+  public static let syntaxKind = SyntaxKind.handleClauseList
 }
 
 /// ### Children

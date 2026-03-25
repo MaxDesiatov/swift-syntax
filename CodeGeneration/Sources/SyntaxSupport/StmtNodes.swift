@@ -73,6 +73,13 @@ public let STMT_NODES: [Node] = [
   ),
 
   Node(
+    kind: .handleClauseList,
+    base: .syntaxCollection,
+    nameForDiagnostics: "'handle' clause",
+    elementChoices: [.handleClause]
+  ),
+
+  Node(
     kind: .catchClause,
     base: .syntax,
     nameForDiagnostics: "'catch' clause",
@@ -234,6 +241,84 @@ public let STMT_NODES: [Node] = [
       Child(
         name: "catchClauses",
         kind: .collection(kind: .catchClauseList, collectionElementName: "CatchClause", defaultsToEmpty: true)
+      ),
+    ]
+  ),
+
+  Node(
+    kind: .handleClause,
+    base: .syntax,
+    nameForDiagnostics: "'handle' clause",
+    documentation: """
+      A handle clause in a `do...handle` statement: `handle MockFS() as FileSystem`.
+      """,
+    children: [
+      Child(
+        name: "handler",
+        kind: .node(kind: .expr),
+        documentation: "The handler expression."
+      ),
+      Child(
+        name: "asKeyword",
+        kind: .token(choices: [.keyword(.as)]),
+        documentation: "The `as` keyword."
+      ),
+      Child(
+        name: "effectType",
+        kind: .node(kind: .type),
+        documentation: "The effect protocol type."
+      ),
+      Child(
+        name: "trailingComma",
+        kind: .token(choices: [.token(.comma)]),
+        documentation: "A trailing comma if there are more handle clauses.",
+        isOptional: true
+      ),
+    ]
+  ),
+
+  Node(
+    kind: .doHandleStmt,
+    base: .stmt,
+    nameForDiagnostics: "'do...handle' statement",
+    documentation: """
+      A `do` statement with `handle` clauses for context effects.
+
+      ### Examples
+
+      ```swift
+      do {
+          readFile(at: "test.txt")
+      } handle MockFS() as FileSystem
+      ```
+      """,
+    traits: [
+      "WithCodeBlock"
+    ],
+    children: [
+      Child(
+        name: "doKeyword",
+        kind: .token(choices: [.keyword(.do)])
+      ),
+      Child(
+        name: "effectsClause",
+        kind: .node(kind: .effectsClause),
+        documentation: "Optional clause declaring which effects the body uses.",
+        isOptional: true
+      ),
+      Child(
+        name: "body",
+        kind: .node(kind: .codeBlock),
+        nameForDiagnostics: "body"
+      ),
+      Child(
+        name: "handleKeyword",
+        kind: .token(choices: [.keyword(.handle)]),
+        documentation: "The `handle` keyword."
+      ),
+      Child(
+        name: "handleClauses",
+        kind: .collection(kind: .handleClauseList, collectionElementName: "HandleClause")
       ),
     ]
   ),

@@ -3328,6 +3328,7 @@ public struct CodeBlockItemSyntax: SyntaxProtocol, SyntaxHashable, _LeafSyntaxNo
 ///  - ``CatchClauseSyntax``.``CatchClauseSyntax/body``
 ///  - ``DeferStmtSyntax``.``DeferStmtSyntax/body``
 ///  - ``DeinitializerDeclSyntax``.``DeinitializerDeclSyntax/body``
+///  - ``DoHandleStmtSyntax``.``DoHandleStmtSyntax/body``
 ///  - ``DoStmtSyntax``.``DoStmtSyntax/body``
 ///  - ``ForStmtSyntax``.``ForStmtSyntax/body``
 ///  - ``FunctionDeclSyntax``.``FunctionDeclSyntax/body``

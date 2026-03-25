@@ -2018,6 +2018,112 @@ public struct RawDoExprSyntax: RawExprSyntaxNodeProtocol {
 }
 
 @_spi(RawSyntax)
+public struct RawDoHandleStmtSyntax: RawStmtSyntaxNodeProtocol {
+  @_spi(RawSyntax)
+  public var layoutView: RawSyntaxLayoutView {
+    return raw.layoutView!
+  }
+
+  public static func isKindOf(_ raw: RawSyntax) -> Bool {
+    return raw.kind == .doHandleStmt
+  }
+
+  public var raw: RawSyntax
+
+  init(raw: RawSyntax) {
+    precondition(Self.isKindOf(raw))
+    self.raw = raw
+  }
+
+  private init(unchecked raw: RawSyntax) {
+    self.raw = raw
+  }
+
+  public init?(_ other: some RawSyntaxNodeProtocol) {
+    guard Self.isKindOf(other.raw) else {
+      return nil
+    }
+    self.init(unchecked: other.raw)
+  }
+
+  public init(
+    _ unexpectedBeforeDoKeyword: RawUnexpectedNodesSyntax? = nil,
+    doKeyword: RawTokenSyntax,
+    _ unexpectedBetweenDoKeywordAndEffectsClause: RawUnexpectedNodesSyntax? = nil,
+    effectsClause: RawEffectsClauseSyntax?,
+    _ unexpectedBetweenEffectsClauseAndBody: RawUnexpectedNodesSyntax? = nil,
+    body: RawCodeBlockSyntax,
+    _ unexpectedBetweenBodyAndHandleKeyword: RawUnexpectedNodesSyntax? = nil,
+    handleKeyword: RawTokenSyntax,
+    _ unexpectedBetweenHandleKeywordAndHandleClauses: RawUnexpectedNodesSyntax? = nil,
+    handleClauses: RawHandleClauseListSyntax,
+    _ unexpectedAfterHandleClauses: RawUnexpectedNodesSyntax? = nil,
+    arena: __shared RawSyntaxArena
+  ) {
+    let raw = RawSyntax.makeLayout(
+      kind: .doHandleStmt, uninitializedCount: 11, arena: arena) { layout in
+      layout.initialize(repeating: nil)
+      layout[0] = unexpectedBeforeDoKeyword?.raw
+      layout[1] = doKeyword.raw
+      layout[2] = unexpectedBetweenDoKeywordAndEffectsClause?.raw
+      layout[3] = effectsClause?.raw
+      layout[4] = unexpectedBetweenEffectsClauseAndBody?.raw
+      layout[5] = body.raw
+      layout[6] = unexpectedBetweenBodyAndHandleKeyword?.raw
+      layout[7] = handleKeyword.raw
+      layout[8] = unexpectedBetweenHandleKeywordAndHandleClauses?.raw
+      layout[9] = handleClauses.raw
+      layout[10] = unexpectedAfterHandleClauses?.raw
+    }
+    self.init(unchecked: raw)
+  }
+
+  public var unexpectedBeforeDoKeyword: RawUnexpectedNodesSyntax? {
+    layoutView.children[0].map(RawUnexpectedNodesSyntax.init(raw:))
+  }
+
+  public var doKeyword: RawTokenSyntax {
+    layoutView.children[1].map(RawTokenSyntax.init(raw:))!
+  }
+
+  public var unexpectedBetweenDoKeywordAndEffectsClause: RawUnexpectedNodesSyntax? {
+    layoutView.children[2].map(RawUnexpectedNodesSyntax.init(raw:))
+  }
+
+  public var effectsClause: RawEffectsClauseSyntax? {
+    layoutView.children[3].map(RawEffectsClauseSyntax.init(raw:))
+  }
+
+  public var unexpectedBetweenEffectsClauseAndBody: RawUnexpectedNodesSyntax? {
+    layoutView.children[4].map(RawUnexpectedNodesSyntax.init(raw:))
+  }
+
+  public var body: RawCodeBlockSyntax {
+    layoutView.children[5].map(RawCodeBlockSyntax.init(raw:))!
+  }
+
+  public var unexpectedBetweenBodyAndHandleKeyword: RawUnexpectedNodesSyntax? {
+    layoutView.children[6].map(RawUnexpectedNodesSyntax.init(raw:))
+  }
+
+  public var handleKeyword: RawTokenSyntax {
+    layoutView.children[7].map(RawTokenSyntax.init(raw:))!
+  }
+
+  public var unexpectedBetweenHandleKeywordAndHandleClauses: RawUnexpectedNodesSyntax? {
+    layoutView.children[8].map(RawUnexpectedNodesSyntax.init(raw:))
+  }
+
+  public var handleClauses: RawHandleClauseListSyntax {
+    layoutView.children[9].map(RawHandleClauseListSyntax.init(raw:))!
+  }
+
+  public var unexpectedAfterHandleClauses: RawUnexpectedNodesSyntax? {
+    layoutView.children[10].map(RawUnexpectedNodesSyntax.init(raw:))
+  }
+}
+
+@_spi(RawSyntax)
 public struct RawDoStmtSyntax: RawStmtSyntaxNodeProtocol {
   @_spi(RawSyntax)
   public var layoutView: RawSyntaxLayoutView {

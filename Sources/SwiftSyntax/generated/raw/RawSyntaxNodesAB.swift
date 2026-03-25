@@ -537,7 +537,9 @@ public struct RawAccessorEffectSpecifiersSyntax: RawSyntaxNodeProtocol {
   }
 
   public init(
-    _ unexpectedBeforeAsyncSpecifier: RawUnexpectedNodesSyntax? = nil,
+    _ unexpectedBeforeEffectsClause: RawUnexpectedNodesSyntax? = nil,
+    effectsClause: RawEffectsClauseSyntax?,
+    _ unexpectedBetweenEffectsClauseAndAsyncSpecifier: RawUnexpectedNodesSyntax? = nil,
     asyncSpecifier: RawTokenSyntax?,
     _ unexpectedBetweenAsyncSpecifierAndThrowsClause: RawUnexpectedNodesSyntax? = nil,
     throwsClause: RawThrowsClauseSyntax?,
@@ -545,35 +547,45 @@ public struct RawAccessorEffectSpecifiersSyntax: RawSyntaxNodeProtocol {
     arena: __shared RawSyntaxArena
   ) {
     let raw = RawSyntax.makeLayout(
-      kind: .accessorEffectSpecifiers, uninitializedCount: 5, arena: arena) { layout in
+      kind: .accessorEffectSpecifiers, uninitializedCount: 7, arena: arena) { layout in
       layout.initialize(repeating: nil)
-      layout[0] = unexpectedBeforeAsyncSpecifier?.raw
-      layout[1] = asyncSpecifier?.raw
-      layout[2] = unexpectedBetweenAsyncSpecifierAndThrowsClause?.raw
-      layout[3] = throwsClause?.raw
-      layout[4] = unexpectedAfterThrowsClause?.raw
+      layout[0] = unexpectedBeforeEffectsClause?.raw
+      layout[1] = effectsClause?.raw
+      layout[2] = unexpectedBetweenEffectsClauseAndAsyncSpecifier?.raw
+      layout[3] = asyncSpecifier?.raw
+      layout[4] = unexpectedBetweenAsyncSpecifierAndThrowsClause?.raw
+      layout[5] = throwsClause?.raw
+      layout[6] = unexpectedAfterThrowsClause?.raw
     }
     self.init(unchecked: raw)
   }
 
-  public var unexpectedBeforeAsyncSpecifier: RawUnexpectedNodesSyntax? {
+  public var unexpectedBeforeEffectsClause: RawUnexpectedNodesSyntax? {
     layoutView.children[0].map(RawUnexpectedNodesSyntax.init(raw:))
   }
 
-  public var asyncSpecifier: RawTokenSyntax? {
-    layoutView.children[1].map(RawTokenSyntax.init(raw:))
+  public var effectsClause: RawEffectsClauseSyntax? {
+    layoutView.children[1].map(RawEffectsClauseSyntax.init(raw:))
   }
 
-  public var unexpectedBetweenAsyncSpecifierAndThrowsClause: RawUnexpectedNodesSyntax? {
+  public var unexpectedBetweenEffectsClauseAndAsyncSpecifier: RawUnexpectedNodesSyntax? {
     layoutView.children[2].map(RawUnexpectedNodesSyntax.init(raw:))
   }
 
+  public var asyncSpecifier: RawTokenSyntax? {
+    layoutView.children[3].map(RawTokenSyntax.init(raw:))
+  }
+
+  public var unexpectedBetweenAsyncSpecifierAndThrowsClause: RawUnexpectedNodesSyntax? {
+    layoutView.children[4].map(RawUnexpectedNodesSyntax.init(raw:))
+  }
+
   public var throwsClause: RawThrowsClauseSyntax? {
-    layoutView.children[3].map(RawThrowsClauseSyntax.init(raw:))
+    layoutView.children[5].map(RawThrowsClauseSyntax.init(raw:))
   }
 
   public var unexpectedAfterThrowsClause: RawUnexpectedNodesSyntax? {
-    layoutView.children[4].map(RawUnexpectedNodesSyntax.init(raw:))
+    layoutView.children[6].map(RawUnexpectedNodesSyntax.init(raw:))
   }
 }
 

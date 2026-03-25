@@ -137,6 +137,7 @@ allows Swift tools to parse, inspect, generate, and transform Swift source code.
 - <doc:SwiftSyntax/UnresolvedIsExprSyntax>
 - <doc:SwiftSyntax/UnresolvedTernaryExprSyntax>
 - <doc:SwiftSyntax/UnsafeExprSyntax>
+- <doc:SwiftSyntax/WithEffectExprSyntax>
 
 ### Patterns
 
@@ -159,6 +160,7 @@ allows Swift tools to parse, inspect, generate, and transform Swift source code.
 - <doc:SwiftSyntax/ContinueStmtSyntax>
 - <doc:SwiftSyntax/DeferStmtSyntax>
 - <doc:SwiftSyntax/DiscardStmtSyntax>
+- <doc:SwiftSyntax/DoHandleStmtSyntax>
 - <doc:SwiftSyntax/DoStmtSyntax>
 - <doc:SwiftSyntax/ExpressionStmtSyntax>
 - <doc:SwiftSyntax/FallThroughStmtSyntax>
@@ -235,6 +237,8 @@ allows Swift tools to parse, inspect, generate, and transform Swift source code.
 - <doc:SwiftSyntax/DocumentationAttributeArgumentListSyntax>
 - <doc:SwiftSyntax/DocumentationAttributeArgumentSyntax>
 - <doc:SwiftSyntax/EffectsAttributeArgumentListSyntax>
+- <doc:SwiftSyntax/EffectsTypeListSyntax>
+- <doc:SwiftSyntax/EffectsTypeListElementSyntax>
 - <doc:SwiftSyntax/EnumCaseElementListSyntax>
 - <doc:SwiftSyntax/EnumCaseElementSyntax>
 - <doc:SwiftSyntax/EnumCaseParameterListSyntax>
@@ -248,6 +252,8 @@ allows Swift tools to parse, inspect, generate, and transform Swift source code.
 - <doc:SwiftSyntax/GenericParameterSyntax>
 - <doc:SwiftSyntax/GenericRequirementListSyntax>
 - <doc:SwiftSyntax/GenericRequirementSyntax>
+- <doc:SwiftSyntax/HandleClauseListSyntax>
+- <doc:SwiftSyntax/HandleClauseSyntax>
 - <doc:SwiftSyntax/IfConfigClauseListSyntax>
 - <doc:SwiftSyntax/IfConfigClauseSyntax>
 - <doc:SwiftSyntax/ImportPathComponentListSyntax>
@@ -347,6 +353,7 @@ allows Swift tools to parse, inspect, generate, and transform Swift source code.
 - <doc:SwiftSyntax/DeclModifierDetailSyntax>
 - <doc:SwiftSyntax/DeclNameArgumentsSyntax>
 - <doc:SwiftSyntax/DeinitializerEffectSpecifiersSyntax>
+- <doc:SwiftSyntax/EffectsClauseSyntax>
 - <doc:SwiftSyntax/EnumCaseParameterClauseSyntax>
 - <doc:SwiftSyntax/FunctionEffectSpecifiersSyntax>
 - <doc:SwiftSyntax/FunctionParameterClauseSyntax>

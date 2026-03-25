@@ -76,8 +76,8 @@ extension Parser {
         )
         return label(doStmt, with: optLabel)
       }
-      // Otherwise parse a regular DoStmtSyntax.
-      return label(self.parseDoStatement(doHandle: handle), with: optLabel)
+      // Otherwise parse a regular DoStmtSyntax or DoHandleStmtSyntax.
+      return label(self.parseDoOrDoHandleStatement(doHandle: handle), with: optLabel)
     case (.if, let handle)?:
       let ifExpr = self.parseIfExpression(ifHandle: handle)
       let ifStmt = RawExpressionStmtSyntax(
@@ -401,6 +401,112 @@ extension Parser {
 // MARK: Do-Catch Statements
 
 extension Parser {
+  /// Parse a do statement or a do...handle statement.
+  mutating func parseDoOrDoHandleStatement(doHandle: RecoveryConsumptionHandle) -> RawStmtSyntax {
+    let (unexpectedBeforeDoKeyword, doKeyword) = self.eat(doHandle)
+
+    // Parse the optional throws clause.
+    let throwsClause: RawThrowsClauseSyntax?
+    if let throwsSpecifier = self.consume(if: .keyword(.throws)) {
+      throwsClause = parseThrowsClause(after: throwsSpecifier)
+    } else {
+      throwsClause = nil
+    }
+
+    // Parse the optional effects clause (for do...handle).
+    var effectsClause: RawEffectsClauseSyntax? = nil
+    if self.experimentalFeatures.contains(.contextEffects),
+       self.at(.keyword(.effects)) {
+      let effectsKw = self.consumeAnyToken()
+      let (unexpectedBeforeLParen, lparen) = self.expect(.leftParen)
+      var types = [RawEffectsTypeListElementSyntax]()
+      if !self.at(.rightParen, .endOfFile) {
+        let type = self.parseType()
+        types.append(RawEffectsTypeListElementSyntax(
+          type: type, trailingComma: nil, arena: self.arena
+        ))
+      }
+      let (unexpectedBeforeRParen, rparen) = self.expect(.rightParen)
+      effectsClause = RawEffectsClauseSyntax(
+        effectsSpecifier: effectsKw,
+        unexpectedBeforeLParen,
+        leftParen: lparen,
+        types: RawEffectsTypeListSyntax(elements: types, arena: self.arena),
+        unexpectedBeforeRParen,
+        rightParen: rparen,
+        arena: self.arena
+      )
+    }
+
+    let body = self.parseCodeBlock(introducer: doKeyword)
+
+    // If the next token is 'catch', this is a 'do'/'catch' statement.
+    var catchElements = [RawCatchClauseSyntax]()
+    var loopProgress = LoopProgressCondition()
+    while self.at(.keyword(.catch)) && self.hasProgressed(&loopProgress) {
+      catchElements.append(self.parseCatchClause())
+    }
+
+    if !catchElements.isEmpty {
+      return RawStmtSyntax(
+        RawDoStmtSyntax(
+          unexpectedBeforeDoKeyword,
+          doKeyword: doKeyword,
+          throwsClause: throwsClause,
+          body: body,
+          catchClauses: RawCatchClauseListSyntax(elements: catchElements, arena: self.arena),
+          arena: self.arena
+        )
+      )
+    }
+
+    // If the next token is 'handle' and the feature is enabled, parse do...handle.
+    if self.experimentalFeatures.contains(.contextEffects),
+       self.at(.keyword(.handle)) {
+      let handleKeyword = self.consumeAnyToken()
+      var handleClauses = [RawHandleClauseSyntax]()
+      var handleLoopProgress = LoopProgressCondition()
+      repeat {
+        let handler = self.parseUnaryExpression(flavor: .basic)
+        let (unexpectedBeforeAs, asKeyword) = self.expect(.keyword(.as))
+        let effectType = self.parseType()
+        let comma = self.consume(if: .comma)
+        handleClauses.append(RawHandleClauseSyntax(
+          handler: handler,
+          unexpectedBeforeAs,
+          asKeyword: asKeyword,
+          effectType: effectType,
+          trailingComma: comma,
+          arena: self.arena
+        ))
+      } while handleClauses.last?.trailingComma != nil && self.hasProgressed(&handleLoopProgress)
+
+      return RawStmtSyntax(
+        RawDoHandleStmtSyntax(
+          unexpectedBeforeDoKeyword,
+          doKeyword: doKeyword,
+          effectsClause: effectsClause,
+          body: body,
+          handleKeyword: handleKeyword,
+          handleClauses: RawHandleClauseListSyntax(elements: handleClauses, arena: self.arena),
+          arena: self.arena
+        )
+      )
+    }
+
+    // Plain do statement (no catch, no handle).
+    return RawStmtSyntax(
+      RawDoStmtSyntax(
+        unexpectedBeforeDoKeyword,
+        doKeyword: doKeyword,
+        throwsClause: throwsClause,
+        body: body,
+        catchClauses: RawCatchClauseListSyntax(elements: [], arena: self.arena),
+        arena: self.arena
+      )
+    )
+  }
+
   /// Parse a do statement.
   mutating func parseDoStatement(doHandle: RecoveryConsumptionHandle) -> RawDoStmtSyntax {
     let (unexpectedBeforeDoKeyword, doKeyword) = self.eat(doHandle)

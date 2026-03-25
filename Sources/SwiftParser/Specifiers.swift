@@ -162,10 +162,12 @@ protocol RawMisplacedEffectSpecifiersTrait {
   /// Should be a subset of ``ThrowsEffectSpecifier``.
   associatedtype CorrectThrowsTokenKinds: TokenSpecSet
 
+  var effectsClause: RawEffectsClauseSyntax? { get }
   var asyncSpecifier: RawTokenSyntax? { get }
   var throwsClause: RawThrowsClauseSyntax? { get }
 
   init(
+    effectsClause: RawEffectsClauseSyntax?,
     asyncSpecifier: RawTokenSyntax?,
     throwsClause: RawThrowsClauseSyntax?,
     arena: __shared RawSyntaxArena
@@ -179,11 +181,14 @@ protocol RawMisplacedEffectSpecifiersTrait {
 }
 
 protocol RawEffectSpecifiersTrait: RawMisplacedEffectSpecifiersTrait {
-  var unexpectedBeforeAsyncSpecifier: RawUnexpectedNodesSyntax? { get }
+  var unexpectedBeforeEffectsClause: RawUnexpectedNodesSyntax? { get }
+  var unexpectedBetweenEffectsClauseAndAsyncSpecifier: RawUnexpectedNodesSyntax? { get }
   var unexpectedBetweenAsyncSpecifierAndThrowsClause: RawUnexpectedNodesSyntax? { get }
   var unexpectedAfterThrowsClause: RawUnexpectedNodesSyntax? { get }
   init(
-    _ unexpectedBeforeAsyncSpecifier: RawUnexpectedNodesSyntax?,
+    _ unexpectedBeforeEffectsClause: RawUnexpectedNodesSyntax?,
+    effectsClause: RawEffectsClauseSyntax?,
+    _ unexpectedBetweenEffectsClauseAndAsyncSpecifier: RawUnexpectedNodesSyntax?,
     asyncSpecifier: RawTokenSyntax?,
     _ unexpectedBetweenAsyncSpecifierAndThrowsClause: RawUnexpectedNodesSyntax?,
     throwsClause: RawThrowsClauseSyntax?,
@@ -194,11 +199,14 @@ protocol RawEffectSpecifiersTrait: RawMisplacedEffectSpecifiersTrait {
 
 extension RawEffectSpecifiersTrait {
   init(
+    effectsClause: RawEffectsClauseSyntax?,
     asyncSpecifier: RawTokenSyntax?,
     throwsClause: RawThrowsClauseSyntax?,
     arena: __shared RawSyntaxArena
   ) {
     self.init(
+      nil,
+      effectsClause: effectsClause,
       nil,
       asyncSpecifier: asyncSpecifier,
       nil,
@@ -214,7 +222,9 @@ extension RawEffectSpecifiersTrait {
     arena: __shared RawSyntaxArena
   ) -> Self {
     return Self.init(
-      self.unexpectedBeforeAsyncSpecifier,
+      self.unexpectedBeforeEffectsClause,
+      effectsClause: self.effectsClause,
+      self.unexpectedBetweenEffectsClauseAndAsyncSpecifier,
       asyncSpecifier: self.asyncSpecifier ?? misplacedAsyncKeyword,
       self.unexpectedBetweenAsyncSpecifierAndThrowsClause,
       throwsClause: self.throwsClause ?? misplacedThrowsClause,
@@ -539,8 +549,10 @@ extension RawDeinitializerEffectSpecifiersSyntax: RawMisplacedEffectSpecifiersTr
   }
 
   var throwsClause: RawThrowsClauseSyntax? { nil }
+  var effectsClause: RawEffectsClauseSyntax? { nil }
 
   init(
+    effectsClause: RawEffectsClauseSyntax?,
     asyncSpecifier: RawTokenSyntax?,
     throwsClause: RawThrowsClauseSyntax?,
     arena: __shared SwiftSyntax.RawSyntaxArena
@@ -621,6 +633,31 @@ extension Parser {
   }
 
   private mutating func parseEffectSpecifiers<S: RawEffectSpecifiersTrait>(_: S.Type) -> S? {
+    // Parse 'effects(TypeList)' if the feature is enabled
+    var effectsClause: RawEffectsClauseSyntax? = nil
+    if self.experimentalFeatures.contains(.contextEffects),
+       self.at(.keyword(.effects)) {
+      let effectsKw = self.consumeAnyToken()
+      let (unexpectedBeforeLParen, lparen) = self.expect(.leftParen)
+      var types = [RawEffectsTypeListElementSyntax]()
+      if !self.at(.rightParen, .endOfFile) {
+        let type = self.parseType()
+        types.append(RawEffectsTypeListElementSyntax(
+          type: type, trailingComma: nil, arena: self.arena
+        ))
+      }
+      let (unexpectedBeforeRParen, rparen) = self.expect(.rightParen)
+      effectsClause = RawEffectsClauseSyntax(
+        effectsSpecifier: effectsKw,
+        unexpectedBeforeLParen,
+        leftParen: lparen,
+        types: RawEffectsTypeListSyntax(elements: types, arena: self.arena),
+        unexpectedBeforeRParen,
+        rightParen: rparen,
+        arena: self.arena
+      )
+    }
+
     var unexpectedBeforeAsync: [RawSyntax] = []
     var asyncKeyword: RawTokenSyntax? = nil
     var unexpectedBeforeThrows: [RawSyntax] = []
@@ -690,13 +727,16 @@ extension Parser {
       }
     }
 
-    if unexpectedBeforeAsync.isEmpty && asyncKeyword == nil && unexpectedBeforeThrows.isEmpty && throwsClause == nil
+    if effectsClause == nil && unexpectedBeforeAsync.isEmpty && asyncKeyword == nil
+      && unexpectedBeforeThrows.isEmpty && throwsClause == nil
       && unexpectedAfterThrowsClause.isEmpty
     {
       return nil
     }
 
     return S(
+      nil,
+      effectsClause: effectsClause,
       RawUnexpectedNodesSyntax(unexpectedBeforeAsync, arena: self.arena),
       asyncSpecifier: asyncKeyword,
       RawUnexpectedNodesSyntax(unexpectedBeforeThrows, arena: self.arena),
@@ -879,6 +919,7 @@ extension Parser {
         )
       } else {
         effectSpecifiers = S(
+          effectsClause: nil,
           asyncSpecifier: synthesizedAsync,
           throwsClause: synthesizedThrowsClause,
           arena: self.arena

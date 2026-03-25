@@ -77,7 +77,13 @@ public let TRAITS: [Trait] = [
   Trait(
     traitName: "EffectSpecifiers",
     children: [
-      Child(name: "unexpectedBeforeAsyncSpecifier", kind: .node(kind: .unexpectedNodes), isOptional: true),
+      Child(name: "unexpectedBeforeEffectsClause", kind: .node(kind: .unexpectedNodes), isOptional: true),
+      Child(name: "effectsClause", kind: .node(kind: .effectsClause), isOptional: true),
+      Child(
+        name: "unexpectedBetweenEffectsClauseAndAsyncSpecifier",
+        kind: .node(kind: .unexpectedNodes),
+        isOptional: true
+      ),
       Child(name: "asyncSpecifier", kind: .token(choices: [.keyword(.async), .keyword(.reasync)]), isOptional: true),
       Child(
         name: "unexpectedBetweenAsyncSpecifierAndThrowsClause",

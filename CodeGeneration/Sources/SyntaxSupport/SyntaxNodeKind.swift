@@ -112,10 +112,14 @@ public enum SyntaxNodeKind: String, CaseIterable, IdentifierConvertible, TypeCon
   case documentationAttributeArgumentList
   case doExpr
   case doStmt
+  case doHandleStmt
   case dynamicReplacementAttributeArguments
   case editorPlaceholderDecl
   case editorPlaceholderExpr
   case effectsAttributeArgumentList
+  case effectsClause
+  case effectsTypeList
+  case effectsTypeListElement
   case enumCaseDecl
   case enumCaseElement
   case enumCaseElementList
@@ -152,6 +156,8 @@ public enum SyntaxNodeKind: String, CaseIterable, IdentifierConvertible, TypeCon
   case genericSpecializationExpr
   case genericWhereClause
   case guardStmt
+  case handleClause
+  case handleClauseList
   case identifierPattern
   case identifierType
   case ifConfigClause
@@ -316,6 +322,7 @@ public enum SyntaxNodeKind: String, CaseIterable, IdentifierConvertible, TypeCon
   case whereClause
   case whileStmt
   case wildcardPattern
+  case withEffectExpr
   case yieldedExpression
   case yieldedExpressionList
   case yieldedExpressionsClause

@@ -82,8 +82,12 @@ public func childName(_ keyPath: AnyKeyPath) -> String? {
     return "body"
   case \AccessorDeclSyntax.unexpectedAfterBody:
     return "unexpectedAfterBody"
-  case \AccessorEffectSpecifiersSyntax.unexpectedBeforeAsyncSpecifier:
-    return "unexpectedBeforeAsyncSpecifier"
+  case \AccessorEffectSpecifiersSyntax.unexpectedBeforeEffectsClause:
+    return "unexpectedBeforeEffectsClause"
+  case \AccessorEffectSpecifiersSyntax.effectsClause:
+    return "effectsClause"
+  case \AccessorEffectSpecifiersSyntax.unexpectedBetweenEffectsClauseAndAsyncSpecifier:
+    return "unexpectedBetweenEffectsClauseAndAsyncSpecifier"
   case \AccessorEffectSpecifiersSyntax.asyncSpecifier:
     return "asyncSpecifier"
   case \AccessorEffectSpecifiersSyntax.unexpectedBetweenAsyncSpecifierAndThrowsClause:
@@ -1060,6 +1064,28 @@ public func childName(_ keyPath: AnyKeyPath) -> String? {
     return "catchClauses"
   case \DoExprSyntax.unexpectedAfterCatchClauses:
     return "unexpectedAfterCatchClauses"
+  case \DoHandleStmtSyntax.unexpectedBeforeDoKeyword:
+    return "unexpectedBeforeDoKeyword"
+  case \DoHandleStmtSyntax.doKeyword:
+    return "doKeyword"
+  case \DoHandleStmtSyntax.unexpectedBetweenDoKeywordAndEffectsClause:
+    return "unexpectedBetweenDoKeywordAndEffectsClause"
+  case \DoHandleStmtSyntax.effectsClause:
+    return "effectsClause"
+  case \DoHandleStmtSyntax.unexpectedBetweenEffectsClauseAndBody:
+    return "unexpectedBetweenEffectsClauseAndBody"
+  case \DoHandleStmtSyntax.body:
+    return "body"
+  case \DoHandleStmtSyntax.unexpectedBetweenBodyAndHandleKeyword:
+    return "unexpectedBetweenBodyAndHandleKeyword"
+  case \DoHandleStmtSyntax.handleKeyword:
+    return "handleKeyword"
+  case \DoHandleStmtSyntax.unexpectedBetweenHandleKeywordAndHandleClauses:
+    return "unexpectedBetweenHandleKeywordAndHandleClauses"
+  case \DoHandleStmtSyntax.handleClauses:
+    return "handleClauses"
+  case \DoHandleStmtSyntax.unexpectedAfterHandleClauses:
+    return "unexpectedAfterHandleClauses"
   case \DoStmtSyntax.unexpectedBeforeDoKeyword:
     return "unexpectedBeforeDoKeyword"
   case \DoStmtSyntax.doKeyword:
@@ -1130,6 +1156,34 @@ public func childName(_ keyPath: AnyKeyPath) -> String? {
     return "placeholder"
   case \EditorPlaceholderExprSyntax.unexpectedAfterPlaceholder:
     return "unexpectedAfterPlaceholder"
+  case \EffectsClauseSyntax.unexpectedBeforeEffectsSpecifier:
+    return "unexpectedBeforeEffectsSpecifier"
+  case \EffectsClauseSyntax.effectsSpecifier:
+    return "effectsSpecifier"
+  case \EffectsClauseSyntax.unexpectedBetweenEffectsSpecifierAndLeftParen:
+    return "unexpectedBetweenEffectsSpecifierAndLeftParen"
+  case \EffectsClauseSyntax.leftParen:
+    return "leftParen"
+  case \EffectsClauseSyntax.unexpectedBetweenLeftParenAndTypes:
+    return "unexpectedBetweenLeftParenAndTypes"
+  case \EffectsClauseSyntax.types:
+    return "types"
+  case \EffectsClauseSyntax.unexpectedBetweenTypesAndRightParen:
+    return "unexpectedBetweenTypesAndRightParen"
+  case \EffectsClauseSyntax.rightParen:
+    return "rightParen"
+  case \EffectsClauseSyntax.unexpectedAfterRightParen:
+    return "unexpectedAfterRightParen"
+  case \EffectsTypeListElementSyntax.unexpectedBeforeType:
+    return "unexpectedBeforeType"
+  case \EffectsTypeListElementSyntax.type:
+    return "type"
+  case \EffectsTypeListElementSyntax.unexpectedBetweenTypeAndTrailingComma:
+    return "unexpectedBetweenTypeAndTrailingComma"
+  case \EffectsTypeListElementSyntax.trailingComma:
+    return "trailingComma"
+  case \EffectsTypeListElementSyntax.unexpectedAfterTrailingComma:
+    return "unexpectedAfterTrailingComma"
   case \EnumCaseDeclSyntax.unexpectedBeforeAttributes:
     return "unexpectedBeforeAttributes"
   case \EnumCaseDeclSyntax.attributes:
@@ -1436,8 +1490,12 @@ public func childName(_ keyPath: AnyKeyPath) -> String? {
     return "body"
   case \FunctionDeclSyntax.unexpectedAfterBody:
     return "unexpectedAfterBody"
-  case \FunctionEffectSpecifiersSyntax.unexpectedBeforeAsyncSpecifier:
-    return "unexpectedBeforeAsyncSpecifier"
+  case \FunctionEffectSpecifiersSyntax.unexpectedBeforeEffectsClause:
+    return "unexpectedBeforeEffectsClause"
+  case \FunctionEffectSpecifiersSyntax.effectsClause:
+    return "effectsClause"
+  case \FunctionEffectSpecifiersSyntax.unexpectedBetweenEffectsClauseAndAsyncSpecifier:
+    return "unexpectedBetweenEffectsClauseAndAsyncSpecifier"
   case \FunctionEffectSpecifiersSyntax.asyncSpecifier:
     return "asyncSpecifier"
   case \FunctionEffectSpecifiersSyntax.unexpectedBetweenAsyncSpecifierAndThrowsClause:
@@ -1650,6 +1708,24 @@ public func childName(_ keyPath: AnyKeyPath) -> String? {
     return "body"
   case \GuardStmtSyntax.unexpectedAfterBody:
     return "unexpectedAfterBody"
+  case \HandleClauseSyntax.unexpectedBeforeHandler:
+    return "unexpectedBeforeHandler"
+  case \HandleClauseSyntax.handler:
+    return "handler"
+  case \HandleClauseSyntax.unexpectedBetweenHandlerAndAsKeyword:
+    return "unexpectedBetweenHandlerAndAsKeyword"
+  case \HandleClauseSyntax.asKeyword:
+    return "asKeyword"
+  case \HandleClauseSyntax.unexpectedBetweenAsKeywordAndEffectType:
+    return "unexpectedBetweenAsKeywordAndEffectType"
+  case \HandleClauseSyntax.effectType:
+    return "effectType"
+  case \HandleClauseSyntax.unexpectedBetweenEffectTypeAndTrailingComma:
+    return "unexpectedBetweenEffectTypeAndTrailingComma"
+  case \HandleClauseSyntax.trailingComma:
+    return "trailingComma"
+  case \HandleClauseSyntax.unexpectedAfterTrailingComma:
+    return "unexpectedAfterTrailingComma"
   case \IdentifierPatternSyntax.unexpectedBeforeIdentifier:
     return "unexpectedBeforeIdentifier"
   case \IdentifierPatternSyntax.identifier:
@@ -3418,8 +3494,12 @@ public func childName(_ keyPath: AnyKeyPath) -> String? {
     return "type"
   case \TypeAnnotationSyntax.unexpectedAfterType:
     return "unexpectedAfterType"
-  case \TypeEffectSpecifiersSyntax.unexpectedBeforeAsyncSpecifier:
-    return "unexpectedBeforeAsyncSpecifier"
+  case \TypeEffectSpecifiersSyntax.unexpectedBeforeEffectsClause:
+    return "unexpectedBeforeEffectsClause"
+  case \TypeEffectSpecifiersSyntax.effectsClause:
+    return "effectsClause"
+  case \TypeEffectSpecifiersSyntax.unexpectedBetweenEffectsClauseAndAsyncSpecifier:
+    return "unexpectedBetweenEffectsClauseAndAsyncSpecifier"
   case \TypeEffectSpecifiersSyntax.asyncSpecifier:
     return "asyncSpecifier"
   case \TypeEffectSpecifiersSyntax.unexpectedBetweenAsyncSpecifierAndThrowsClause:
@@ -3574,6 +3654,16 @@ public func childName(_ keyPath: AnyKeyPath) -> String? {
     return "wildcard"
   case \WildcardPatternSyntax.unexpectedAfterWildcard:
     return "unexpectedAfterWildcard"
+  case \WithEffectExprSyntax.unexpectedBeforeWithEffectKeyword:
+    return "unexpectedBeforeWithEffectKeyword"
+  case \WithEffectExprSyntax.withEffectKeyword:
+    return "withEffectKeyword"
+  case \WithEffectExprSyntax.unexpectedBetweenWithEffectKeywordAndBody:
+    return "unexpectedBetweenWithEffectKeywordAndBody"
+  case \WithEffectExprSyntax.body:
+    return "body"
+  case \WithEffectExprSyntax.unexpectedAfterBody:
+    return "unexpectedAfterBody"
   case \YieldStmtSyntax.unexpectedBeforeYieldKeyword:
     return "unexpectedBeforeYieldKeyword"
   case \YieldStmtSyntax.yieldKeyword:
